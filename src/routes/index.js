@@ -10,6 +10,13 @@ import Experiencia from '../containers/Experiencia'
 import Galeria from '../containers/Galeria'
 import Presupuesto from '../containers/Presupuesto'
 
+import Rocoto from '../containers/Gastronomia/Rocoto'
+import Ceviche from '../containers/Gastronomia/Ceviche'
+import Seco from '../containers/Gastronomia/Seco'
+import Pachamanca from '../containers/Gastronomia/Pachamanca'
+import Trucha from '../containers/Gastronomia/Trucha'
+import Cuy from '../containers/Gastronomia/Cuy'
+
 const FeatureDetail = () => (
   <div>
     sera
@@ -21,7 +28,15 @@ const Routes = () => (
     <Hacer path="/hacer"/>
     <Destino path="/destino"/>
     <Experiencia path="/experiencia" />
-    <Gastronomia path="/gastronomia"/>
+
+    <Gastronomia path="/gastronomia"/> 
+    <Rocoto path="/gastronomia/rocoto"/>
+    <Ceviche path='gastronomia/ceviche'/>
+    <Seco path='gastronomia/seco'/>
+    <Pachamanca path='gastronomia/pachamanca'/>
+    <Trucha path='gastronomia/trucha'/> 
+    <Cuy path='gastronomia/cuy'/>
+    
     <Galeria path="/galeria"/>
     <Presupuesto path="/presupuesto" />      
   </Router>
