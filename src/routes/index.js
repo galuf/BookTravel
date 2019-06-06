@@ -9,6 +9,8 @@ import Destino from '../containers/Destino'
 import Experiencia from '../containers/Experiencia'
 import Galeria from '../containers/Galeria'
 import Presupuesto from '../containers/Presupuesto'
+import Cuzco from   '../containers/Destino/cuzco'
+import Arequipa from   '../containers/Destino/arequipa'
 
 const FeatureDetail = () => (
   <div>
@@ -23,7 +25,10 @@ const Routes = () => (
     <Experiencia path="/experiencia" />
     <Gastronomia path="/gastronomia"/>
     <Galeria path="/galeria"/>
-    <Presupuesto path="/presupuesto" />      
+    <Presupuesto path="/presupuesto" />    
+    <Cuzco path="/cuzco"/>
+    <Arequipa path="/arequipa"/>
+
   </Router>
 )
 

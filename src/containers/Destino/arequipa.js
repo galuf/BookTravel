@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
-import experiencias from '../../utils/experiencias'
+import arequipa from '../../utils/arequipa'
 
 const HeaderHomeWrapper = styled.div`
   background-color: #76B39D;
@@ -20,25 +20,31 @@ const HeaderHomeWrapper = styled.div`
 `
 const Imagen = styled.img`
   padding: 5px;
-  width: 30%;
-  height:20%;
+  width: 100%;
+  height:50%;
   
   
 `
 
 const Texto = styled.div`
   padding: 5px;
-  width: 50%;
-  height:20%;
+  width: 100%;
+  height:50%;
   font-size: 12px;
-  
+  text-align: center;
+  margin-right:90px;
+  margin-left:80px;
+  margin-top:10px;
+
+
   `
 const ContForo = styled.div`
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content:space-around;
-  margin-top:15px;
+  margin-top:1px;
+  align-items:center;
 
   width:100%
   background-color:#ffffff;
@@ -53,12 +59,12 @@ const HeaderHome = () => (
 export class Comentario extends Component{
 
     render(){
-        const {experiencias}=this.props
+        const {arequipa}=this.props
         return (
             <ContForo >
-                <Imagen  src = {experiencias.urlImg}  alt=""/>  
+                <Imagen  src = {arequipa.urlImg}  alt=""/>  
               
-                <Texto>  {experiencias.descripcion} </Texto>
+                <Texto>  {arequipa.descripcion} </Texto>
              </ContForo>
         )
     }
@@ -67,15 +73,15 @@ export class Comentario extends Component{
 
 export class Experiencia extends Component {
     state = {
-      experiencias :experiencias
+      arequipa :arequipa
     }
     render() {
-      const { experiencias } = this.state;
+      const { arequipa } = this.state;
       return (
         <div>
            <HeaderHome/> 
          
-            {experiencias.map(experiencias=>{ return <Comentario experiencias={experiencias} />})}
+            {arequipa.map(arequipa=>{ return <Comentario arequipa={arequipa} />})}
              
         </div>
       )

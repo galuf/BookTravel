@@ -72,9 +72,9 @@ const FeatureWrapper = styled.div`
   }
 `
 
-const Feature = ({item: {urlImg, title, bg } }) => (
+const Feature = ({item: {urlImg, title, bg ,link} }) => (
   <FeatureWrapper bg = { bg ? "true": "false"} onClick = { () => {
-    navigate('/adios')
+    navigate(link)
   }}>
     <img src = {urlImg} alt = ""/>
     { !bg && <div className = "layer"/>}

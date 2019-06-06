@@ -1,0 +1,10 @@
+const cuzco = [{
+ 
+    title: 'Cuzco',
+    urlImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJBTii9qBL7GKLO4uFHh4i5WrrompiH7JIHqWoBYKTl3S4vrjz',
+    descripcion:'Machu Picchu (AFI: [ˌmɑtʃu ˈpiktʃu] en quechua, «de la Vieja Montaña») es el nombre contemporáneo que se da a una llaqta —antiguo poblado incaico andino— construida antes del siglo XV, ubicada en la Cordillera Oriental del sur de Perú, en la cadena montañosa de Los Andes a 2430 m.s.n.m.. Está ubicado en la Región Cusco, Provincia de Urubamba, Distrito de Machupicchu, sobre el Valle Sagrado de los Incas, a 80 kilómetros al noroeste de la ciudad de Cuzco, ciudad del Perú y por donde fluye el río Urubamba, que atraviesa la Cordillera y se origina un cañón con clima de montaña tropical. Según muchos estudiosos su nombre original habría sido Llaqtapata. Según documentos de mediados del siglo XVI,1​ Machu Picchu habría sido una de las residencias de descanso de Pachacútec, noveno inca del Tahuantinsuyo entre 1438 y 1470. Sin embargo, algunas de sus mejores construcciones y el evidente carácter ceremonial de la principal vía de acceso a la llaqta dan cuenta de su origen anterior a Pachacutec y a su presumible utilización como santuario religioso.2​ Ambos usos, el de palacio y el de santuario, no habrían sido incompatibles. Aún cuando se discute su supuesto carácter militar, por lo que los populares calificativos de «fortaleza» o «ciudadela» podrían haber sido superados.3​Machu Picchu es considerada, al mismo tiempo, una obra maestra de la arquitectura y la ingeniería.4​ Sus peculiares características arquitectónicas y paisajísticas, y el velo de misterio que ha tejido a su alrededor buena parte de la literatura publicada sobre el sitio, lo han convertido en uno de los destinos turísticos más populares del planeta, así como una de las 7° maravillas del mundo.En 1976, el treinta por ciento de Machu Picchu había sido restaurado, y todavía continúan los trabajos de restauración.'
+
+
+}
+]
+export default cuzco;

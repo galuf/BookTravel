@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
-import experiencias from '../../utils/experiencias'
+import cuzco from '../../utils/cuzco'
 
 const HeaderHomeWrapper = styled.div`
   background-color: #76B39D;
@@ -20,7 +20,7 @@ const HeaderHomeWrapper = styled.div`
 `
 const Imagen = styled.img`
   padding: 5px;
-  width: 30%;
+  width: 100%;
   height:20%;
   
   
@@ -28,17 +28,21 @@ const Imagen = styled.img`
 
 const Texto = styled.div`
   padding: 5px;
-  width: 50%;
+  width: 100%;
   height:20%;
   font-size: 12px;
-  
+  text-align: center;
+  margin-right:90px;
+  margin-left:80px;
+
   `
 const ContForo = styled.div`
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content:space-around;
   margin-top:15px;
+  align-items:center;
 
   width:100%
   background-color:#ffffff;
@@ -53,12 +57,12 @@ const HeaderHome = () => (
 export class Comentario extends Component{
 
     render(){
-        const {experiencias}=this.props
+        const {cuzco}=this.props
         return (
             <ContForo >
-                <Imagen  src = {experiencias.urlImg}  alt=""/>  
+                <Imagen  src = {cuzco.urlImg}  alt=""/>  
               
-                <Texto>  {experiencias.descripcion} </Texto>
+                <Texto>  {cuzco.descripcion} </Texto>
              </ContForo>
         )
     }
@@ -67,15 +71,15 @@ export class Comentario extends Component{
 
 export class Experiencia extends Component {
     state = {
-      experiencias :experiencias
+      cuzco :cuzco
     }
     render() {
-      const { experiencias } = this.state;
+      const { cuzco } = this.state;
       return (
         <div>
            <HeaderHome/> 
          
-            {experiencias.map(experiencias=>{ return <Comentario experiencias={experiencias} />})}
+            {cuzco.map(cuzco=>{ return <Comentario cuzco={cuzco} />})}
              
         </div>
       )
