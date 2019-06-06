@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
-import features from '../../utils/features'
+import platos from '../../utils/platos'
 
 const HeaderHomeWrapper = styled.div`
   background-color: #76B39D;
@@ -22,7 +22,7 @@ const HeaderHomeWrapper = styled.div`
 const HeaderHome = () => (
   <HeaderHomeWrapper>
     <i className = "material-icons">menu</i>
-    <span>Inicio</span>
+    <span>Gastronomia</span>
   </HeaderHomeWrapper>
 )
 
@@ -72,14 +72,12 @@ const FeatureWrapper = styled.div`
   }
 `
 
-const Feature = ({item: {urlImg, iconName, title, bg } }) => (
-  <FeatureWrapper bg = { bg ? "true": "false"} onClick = { () => {
-    navigate('/adios')
+const Feature = ({item: {urlImg, title, link } }) => (
+  <FeatureWrapper onClick = { () => {
+    navigate(link)
   }}>
     <img src = {urlImg} alt = ""/>
-    { !bg && <div className = "layer"/>}
     <div className = "content">
-      <i className = "material-icons">{iconName}</i>
       <span>{title}</span>
     </div>
   </FeatureWrapper>
@@ -95,13 +93,13 @@ const GridFeatures = ({features}) => (
 
 export class Gastronomia extends Component {
   state = {
-    features: features
+    features: platos
   }
   render() {
     const { features } = this.state;
     return (
       <div>
-        {/* <HeaderHome/> */}
+        <HeaderHome/>
         <GridFeatures features = { features }/>
       </div>
     )
