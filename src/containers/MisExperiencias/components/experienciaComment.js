@@ -13,6 +13,20 @@ import Typography from '@material-ui/core/Typography';
 //console.log("Estoy en mis experiencias");
 import styled from 'styled-components'
 
+const Imagen = styled.img`
+  padding: 5px;
+  width: 30%;
+  height: 30%;
+`
+const Text = styled.p`
+  font-size:10px;
+  margin: 5px;
+`
+const ContForo = styled.div`
+  display:flex;
+  justify-content: space-around;
+`
+
 const Principal = styled.div`
     height: 550px;
     display: flex;
@@ -72,7 +86,7 @@ class Experiencia extends Component{
         //list.push(newExperiencia);
         //this.setState({experiencias:list});
 
-        window.firebase.database().ref(`experiencias/${newExperiencia.id}`)
+        window.firebase.database().ref(`experiencia/${newExperiencia.id}`)
         .set(newExperiencia)
         this.setState({experiencia_comment:''});
     }
@@ -84,7 +98,7 @@ class Experiencia extends Component{
 
 
     componentDidMount(){
-        window.firebase.database().ref('experiencias/').on('value',post_exp=>{
+        window.firebase.database().ref('experiencia/').on('value',post_exp=>{
             const currentExperiencias = post_exp.val();
             if(currentExperiencias!==null){
                 this.setState({
@@ -118,24 +132,24 @@ class Experiencia extends Component{
 
         const {experiencias} = this.state;
         const experienciasList = experiencias.map(experiencia=>{
-            console.log("experienciasLis->",experiencia.comment);
+           // console.log("experienciasLis->",mejia.comment);
+            
             return( 
                 
             <li key={experiencia.id}>
                 
                 <div className={classes.root_padre}>
-                    <Paper className={classes.paper}>
-                        <Grid container wrap="nowrap" spacing={2}>
-                            <Grid item>
-                                <img src='https://ep01.epimg.net/elpais/imagenes/2019/03/14/paco_nadal/1552547205_448982_1552584608_noticia_normal.jpg'/>
-                            </Grid>
-                            <Grid item xs>
-                                <Typography >
+                   <ContForo>
+                        <Imagen src="http://lorempixel.com/500/500/sports/" alt=""/>
+                            <div>
+                                <h3>Visita a Machupichu #12212</h3>
+                                <span>Muy Valorado</span>
+                                <Text>
                                     {experiencia.comment}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Paper>
+                                </Text>
+                            </div> 
+                    </ContForo>
+                    
                 </div>
             </li>
             );
@@ -148,63 +162,14 @@ class Experiencia extends Component{
 
         return(
             <Principal>
-                {/* <div>
-                <Paper className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>W</Avatar>
-                    </Grid>
-                    <Grid item xs zeroMinWidth>
-                        <Typography noWrap>{mensaje}</Typography>
-                    </Grid>
-                    </Grid>
-                </Paper>
-                <Paper className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>W</Avatar>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography noWrap>{mensaje}</Typography>
-                    </Grid>
-                    </Grid>
-                </Paper>
-                <Paper className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>W</Avatar>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography>{mensaje}</Typography>
-                    </Grid>
-                    </Grid>
-                </Paper>
-                </div> 
-
-                
-                
-
-                
-                <Grid item xs={12}>
-                    <Grid container justify="center" >
-                    {[0, 1, 2].map(value => (
-                        <Grid key={value} item>
-                        <Paper className={classes.paper} />
-                        </Grid>
-                    ))}
-                    </Grid>
-                </Grid>*/}
                 <div>
 
                 <Pregunta>
-                    Que lugares de Cusco me recomiendan visitar
+                    Mis Vacaciones
                 </Pregunta>
                 
                 <ListaU>
-                    
-                        
                             {experienciasList}
-                        
                 </ListaU>
                 </div>
 
@@ -220,13 +185,6 @@ class Experiencia extends Component{
                      <Button type="submit" >
                          COMPARTIR
                      </Button>
-                     {/*
-                     <Button
-                        onClick={this.handleSubmit.bind(this)}
-                        raised color="primary">
-                        Send
-                    </Button>
-                    */}
                      
                 </form>
             </Principal>
