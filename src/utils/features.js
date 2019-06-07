@@ -32,22 +32,27 @@ const features = [{
   iconName: '',
   title: 'Mis experiencia',
   urlImg: '',
-  bg: 'green'
+  bg: 'green',
+  link:'./MisExperiencias'
+
 },{
   iconName: '',
   title: 'Solicitar ayuda',
   urlImg: '',
-  bg: 'green'
+  bg: 'green',
+  link:'./SolAyuda'
 },{
   iconName: '',
   title: 'Buscar guia',
   urlImg: '',
-  bg: 'green'
+  bg: 'green',
+  link:'./BuscarGuia'
 },{
   iconName: '',
   title: 'Brindar ayuda',
   urlImg: '',
-  bg: 'green'
+  bg: 'green',
+  link:'./BrindarAyuda'
 }]
 
 export default features;

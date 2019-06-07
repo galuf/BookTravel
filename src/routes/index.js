@@ -7,6 +7,12 @@ import Gastronomia from '../containers/Gastronomia'
 import Hacer from '../containers/Hacer'
 import Destino from '../containers/Destino'
 import Experiencia from '../containers/Experiencia'
+
+import SolAyuda from '../containers/SolAyuda';
+import BuscarGuia from '../containers/BuscarGuia';
+import BrindarAyuda from '../containers/BrindarAyuda';
+
+
 import Galeria from '../containers/Galeria'
 import Presupuesto from '../containers/Presupuesto'
 import Cuzco from   '../containers/Destino/cuzco'
@@ -18,6 +24,7 @@ import Seco from '../containers/Gastronomia/Seco'
 import Pachamanca from '../containers/Gastronomia/Pachamanca'
 import Trucha from '../containers/Gastronomia/Trucha'
 import Cuy from '../containers/Gastronomia/Cuy'
+import MisExperiencias from '../containers/MisExperiencias';
 
 const FeatureDetail = () => (
   <div>
@@ -30,6 +37,11 @@ const Routes = () => (
     <Hacer path="/hacer"/>
     <Destino path="/destino"/>
     <Experiencia path="/experiencia" />
+    <MisExperiencias path="/MisExperiencias"/>
+    
+    <SolAyuda path="/SolAyuda"/>
+    <BuscarGuia path="/BuscarGuia"/>
+    <BrindarAyuda path="/BrindarAyuda"/>
 
     <Gastronomia path="/gastronomia"/> 
     <Rocoto path="/gastronomia/rocoto"/>
