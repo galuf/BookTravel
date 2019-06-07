@@ -18,6 +18,7 @@ import Seco from '../containers/Gastronomia/Seco'
 import Pachamanca from '../containers/Gastronomia/Pachamanca'
 import Trucha from '../containers/Gastronomia/Trucha'
 import Cuy from '../containers/Gastronomia/Cuy'
+// import Login from '../containers/Login'
 
 const FeatureDetail = () => (
   <div>
@@ -38,7 +39,8 @@ const Routes = () => (
     <Pachamanca path='gastronomia/pachamanca'/>
     <Trucha path='gastronomia/trucha'/> 
     <Cuy path='gastronomia/cuy'/>
-    
+    {/* <Login path="/login"/> */}
+
     <Galeria path="/galeria"/>
     <Presupuesto path="/presupuesto" />    
     <Cuzco path="/cuzco"/>
