@@ -31,7 +31,7 @@ class NoteForm extends Component {
 
 	render() {
 		return (
-			<div className="NoteForm">
+			<div className="NoteForm"   style={{ marginBottom: "10px" ,display:"flex" }}>
 				<input
 					placeholder="Agreagar experiencia"
 					className="noteInput"
