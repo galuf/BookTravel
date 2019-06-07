@@ -24,6 +24,7 @@ import Seco from '../containers/Gastronomia/Seco'
 import Pachamanca from '../containers/Gastronomia/Pachamanca'
 import Trucha from '../containers/Gastronomia/Trucha'
 import Cuy from '../containers/Gastronomia/Cuy'
+
 import MisExperiencias from '../containers/MisExperiencias';
 
 const FeatureDetail = () => (

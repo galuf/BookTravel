@@ -2,28 +2,12 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
 import arequipa from '../../utils/arequipa'
+import HeaderHome from '../../components/header'
 
-const HeaderHomeWrapper = styled.div`
-  background-color: #76B39D;
-  display: flex;
-  align-items: center;
-  color: white;
-  padding: 12px;
-  i{
-
-  }
-  span{
-    margin-left: 12px;
-    font-size: 24px;
-    font-family: 'Cabin', sans-serif;
-  }
-`
 const Imagen = styled.img`
   padding: 5px;
   width: 100%;
-  height:50%;
-  
-  
+  height:50%;  
 `
 
 const Texto = styled.div`
@@ -35,9 +19,7 @@ const Texto = styled.div`
   margin-right:90px;
   margin-left:80px;
   margin-top:10px;
-
-
-  `
+`
 const ContForo = styled.div`
 
   display: flex;
@@ -46,16 +28,10 @@ const ContForo = styled.div`
   margin-top:1px;
   align-items:center;
 
-  width:100%
+  width:100%;
   background-color:#ffffff;
 
 `
-const HeaderHome = () => (
-  <HeaderHomeWrapper>
-    <i className = "material-icons">menu</i>
-    <span>Inicio</span>
-  </HeaderHomeWrapper>
-)
 export class Comentario extends Component{
 
     render(){
@@ -79,7 +55,7 @@ export class Experiencia extends Component {
       const { arequipa } = this.state;
       return (
         <div>
-           <HeaderHome/> 
+           <HeaderHome titulo="Arequipa "/> 
          
             {arequipa.map(arequipa=>{ return <Comentario arequipa={arequipa} />})}
              

@@ -11,7 +11,27 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 //console.log("Estoy en mis experiencias");
+import styled from 'styled-components'
 
+const Principal = styled.div`
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+`
+const Pregunta = styled.h2`
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin: 25px;
+`
+const ListaU = styled.ul`
+    padding-left: 5px;
+`
 
 const useStyles = makeStyles(theme => ({
     
@@ -127,7 +147,7 @@ class Experiencia extends Component{
         
 
         return(
-            <div>
+            <Principal>
                 {/* <div>
                 <Paper className={classes.paper}>
                     <Grid container wrap="nowrap" spacing={2}>
@@ -174,13 +194,19 @@ class Experiencia extends Component{
                     ))}
                     </Grid>
                 </Grid>*/}
+                <div>
+
+                <Pregunta>
+                    Que lugares de Cusco me recomiendan visitar
+                </Pregunta>
                 
-                <ul>
+                <ListaU>
                     
                         
                             {experienciasList}
                         
-                </ul>
+                </ListaU>
+                </div>
 
                 <form onSubmit={this.handleSubmit.bind(this)} justify="center" >
                     
@@ -203,7 +229,7 @@ class Experiencia extends Component{
                     */}
                      
                 </form>
-            </div>
+            </Principal>
         )
     }
 }

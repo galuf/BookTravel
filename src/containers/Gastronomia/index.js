@@ -2,29 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
 import platos from '../../utils/platos'
-
-const HeaderHomeWrapper = styled.div`
-  background-color: #76B39D;
-  display: flex;
-  align-items: center;
-  color: white;
-  padding: 12px;
-  i{
-
-  }
-  span{
-    margin-left: 12px;
-    font-size: 24px;
-    font-family: 'Cabin', sans-serif;
-  }
-`
-
-const HeaderHome = () => (
-  <HeaderHomeWrapper>
-    <i className = "material-icons">menu</i>
-    <span>Gastronomia</span>
-  </HeaderHomeWrapper>
-)
+import HeaderHome from '../../components/header'
 
 const GridFeaturesWrapper = styled.div`
   display: grid;
@@ -99,7 +77,7 @@ export class Gastronomia extends Component {
     const { features } = this.state;
     return (
       <div>
-        <HeaderHome/>
+        <HeaderHome titulo="Gastronomia"/>
         <GridFeatures features = { features }/>
       </div>
     )
