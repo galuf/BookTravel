@@ -7,6 +7,7 @@ import Gastronomia from '../containers/Gastronomia'
 import Hacer from '../containers/Hacer'
 import Destino from '../containers/Destino'
 import Experiencia from '../containers/Experiencia'
+import MiExperiencia from '../containers/MisExperiencias'
 
 import SolAyuda from '../containers/SolAyuda';
 import BuscarGuia from '../containers/BuscarGuia';
@@ -38,7 +39,7 @@ const Routes = () => (
     <Hacer path="/hacer"/>
     <Destino path="/destino"/>
     <Experiencia path="/experiencia" />
-    <MisExperiencias path="/MisExperiencias"/>
+    <MiExperiencia path="/MisExperiencias"/>
     
     <SolAyuda path="/SolAyuda"/>
     <BuscarGuia path="/BuscarGuia"/>
