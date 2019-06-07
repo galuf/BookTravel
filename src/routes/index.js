@@ -3,7 +3,7 @@ import { Router } from "@reach/router"
 
 import Home from '../containers/Home'
 
-import Gastronomia from '../containers/Gastronomia'
+// import Gastronomia from '../containers/Gastronomia'
 import Hacer from '../containers/Hacer'
 import Destino from '../containers/Destino'
 import Experiencia from '../containers/Experiencia'
@@ -18,6 +18,7 @@ import Seco from '../containers/Gastronomia/Seco'
 import Pachamanca from '../containers/Gastronomia/Pachamanca'
 import Trucha from '../containers/Gastronomia/Trucha'
 import Cuy from '../containers/Gastronomia/Cuy'
+import Gastronomia from  '../containers/MisExperiencias/components/experienciaComment'
 // import Login from '../containers/Login'
 
 const FeatureDetail = () => (
