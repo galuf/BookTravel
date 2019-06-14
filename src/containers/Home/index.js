@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { navigate } from "@reach/router"
 import features from '../../utils/features'
 import HeaderHome from '../../components/header'
-
+import client from '../../config/client'
 const GridFeaturesWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -49,7 +49,6 @@ const FeatureWrapper = styled.div`
     }
   }
 `
-const rutas = ['./destinos', './gastronomia'];
 
 const Feature = ({item: {urlImg, iconName, title, bg, link } }) => (
   <FeatureWrapper bg = { bg ? "true": "false"} onClick = { () => {
@@ -73,6 +72,13 @@ const GridFeatures = ({features}) => (
 )
 
 export class Home extends Component {
+  constructor(props){
+    super(props)
+    this.logout=this.logout.bind(this);
+  }
+  logout(){
+    client.auth().signOut()
+  }
   state = {
     features: features
   }
@@ -81,6 +87,7 @@ export class Home extends Component {
     return (
       <div>
         <HeaderHome titulo = "Inicio"/>
+        <button onClick={this.logout}> logout</button> 
         <GridFeatures features = { features }/>
       </div>
     )

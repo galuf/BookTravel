@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { navigate } from "@reach/router"
 import arequipa from '../../utils/arequipa'
 import HeaderHome from '../../components/header'
 

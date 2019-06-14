@@ -75,10 +75,12 @@ export class Gastronomia extends Component {
   }
   render() {
     const { features } = this.state;
+    const { children } = this.props;
     return (
       <div>
         <HeaderHome titulo="Gastronomia"/>
         <GridFeatures features = { features }/>
+        {children}
       </div>
     )
   }

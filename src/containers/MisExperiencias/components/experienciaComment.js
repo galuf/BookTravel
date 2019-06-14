@@ -2,15 +2,9 @@ import React, {Component} from 'react';
 
 
 import TextField from '@material-ui/core/TextField';
-//import Button from '@material-ui/core/Button';
 import Button from '@material-ui/core/Button';
 
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-//console.log("Estoy en mis experiencias");
 import styled from 'styled-components'
 
 const Imagen = styled.img`
@@ -47,16 +41,6 @@ const ListaU = styled.ul`
     padding-left: 5px;
 `
 
-const useStyles = makeStyles(theme => ({
-    
-    paper: {
-      maxWidth: 400,
-      margin: `${theme.spacing(1)}px auto`,
-      padding: theme.spacing(2),
-    },
-  }));
-
-
 class Experiencia extends Component{
     
 
@@ -76,7 +60,6 @@ class Experiencia extends Component{
     handleSubmit(e){
         e.preventDefault();
         console.log('enter');
-        const list = this.state.experiencias;
         const newExperiencia = {
             id:     this.state.experiencias.length,
             //user:   this.state.user,

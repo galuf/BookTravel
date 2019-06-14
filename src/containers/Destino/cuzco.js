@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { navigate } from "@reach/router"
 import cuzco from '../../utils/cuzco'
 import HeaderHome from '../../components/header'
 
