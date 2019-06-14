@@ -14,7 +14,8 @@ class Login extends Component {
 
       this.state = {
         email: '',
-        password: ''
+        password: '',
+        displayname:''
       };
       this.login = this.login.bind(this);
       this.handleChange = this.handleChange.bind(this);
@@ -43,6 +44,7 @@ class Login extends Component {
       }).catch((error) => {
           console.log(error);
         });
+        
     }
   
     signup(e){
@@ -65,6 +67,10 @@ class Login extends Component {
          <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+        </div>
+        <div class="form-group">
+        <label for="exampleInputPassword1">UserName</label>
+        <input value={this.state.displayname} onChange={this.handleChange} type="displayname" name="displayname" class="form-control" id="exampleInputPassword1" placeholder="Username" />
         </div>
         <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
         <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
