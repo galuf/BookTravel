@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
 import features from '../../utils/features'
+import {fire} from '../../config/config'
 
 const HeaderHomeWrapper = styled.div`
   background-color: #76B39D;
@@ -23,6 +24,7 @@ const HeaderHome = () => (
   <HeaderHomeWrapper>
     <i className = "material-icons">menu</i>
     <span>Inicio</span>
+   
   </HeaderHomeWrapper>
 )
 
@@ -95,6 +97,14 @@ const GridFeatures = ({features}) => (
 )
 
 export class Home extends Component {
+  constructor(props){
+    super(props);
+    this.logout=this.logout.bind(this);
+
+  }
+  logout(){
+    fire.auth().signOut()
+  }
   state = {
     features: features
   }
@@ -103,6 +113,7 @@ export class Home extends Component {
     return (
       <div>
         <HeaderHome/>
+        <button onClick={this.logout}> logout</button>  
         <GridFeatures features = { features }/>
       </div>
     )

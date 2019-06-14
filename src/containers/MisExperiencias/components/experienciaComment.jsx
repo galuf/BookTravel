@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import firebase from 'firebase';
-import  {DB_CONFIG}from  '../../../config/config';
+
+import  databaseReF  from  '../../../config/config';
 
 import TextField from '@material-ui/core/TextField';
 //import Button from '@material-ui/core/Button';
 import Button from '@material-ui/core/Button';
-import 'firebase/database'
 
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
@@ -39,53 +38,46 @@ class Experiencia extends Component{
                 //  {id:2,comment:'text3'}
             ]
         }
-        this.addNote = this.addNote.bind(this);
-		this.removeNote = this.removeNote.bind(this);
-
-		// db connection
-		this.app = firebase.initializeApp(DB_CONFIG);
-		this.db = this.app.database().ref().child('experiencias');
     }
-	componentDidMount() {
-		const { experiencias } = this.state;
-		this.db.on('child_added', snap => {
-			experiencias.push({
-				experienciaId: snap.key,
-				experienciaContent: snap.val().experienciaContent
-			});
- 
-			this.setState({experiencias});
-		});
 
-		this.db.on('child_removed', snap => {
-			for(let i = 0; i < experiencias.length; i++) {
-				if(experiencias[i].experienciaId === snap.key) {
-					experiencias.splice(i , 1);
-				}
-			}
-			console.log(experiencias);
-			this.setState({experiencias});
-		});
+    handleSubmit(e){
+        e.preventDefault();
+        console.log('enter');
+        const list = this.state.experiencias;
+        const newExperiencia = {
+            id:     this.state.experiencias.length,
+            //user:   this.state.user,
+            //ciudad: this.state,   
+            comment:  this.state.experiencia_comment
+        };
+        //list.push(newExperiencia);
+        //this.setState({experiencias:list});
 
+        databaseReF.ref(`experiencias/${newExperiencia.id}`)
+        .set(newExperiencia)
+        this.setState({experiencia_comment:''});
     }
-    addNote(experiencia) {
-		/*
-		let { notes } = this.state;
-		notes.push({
-			noteId: notes.length + 1,
-			noteContent: note
-		});
-		this.setState({
-			notes
-		});
-		*/
-		this.db.push().set({experienciaContent: experiencia});
-	}	
+    updateExperiencia(e){
+        
+        this.setState({experiencia_comment:e.target.value});
+        console.log("-updateExperiencia->",this.state.experiencia_comment);
+    }
 
-	removeNote(experienciaId) {
-		this.db.child(experienciaId).remove();
-	}
-  
+
+    componentDidMount(){
+        databaseReF.ref();
+        databaseReF.ref('experiencias/').on('value',post_exp=>{
+            const currentExperiencias = post_exp.val();
+            if(currentExperiencias!==null){
+                this.setState({
+                    experiencias:   currentExperiencias
+                });
+            }else{
+                console.log("DB -> vacio");
+            }
+        });
+    }
+
     
 
     render(){

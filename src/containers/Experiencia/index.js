@@ -5,7 +5,7 @@ import experiencias from '../../utils/experiencias'
 import NoteForm from '../NoteForm/NoteForm';
 import Note from  '../Note/Note'
 import firebase from 'firebase';
-import  {DB_CONFIG}from  '../../config/config';
+import   databaseReF from  '../../config/config';
 import 'firebase/database'
 import axios from 'axios'
 const HeaderHomeWrapper = styled.div`
@@ -61,8 +61,8 @@ class Experiencia extends Component {
 		this.removeNote = this.removeNote.bind(this);
 
 		// db connection
-		this.app = firebase.initializeApp(DB_CONFIG);
-		this.db = this.app.database().ref().child('notes');
+	
+		this.db = databaseReF.ref().child('notes');
 	}
 
 	componentDidMount() {
