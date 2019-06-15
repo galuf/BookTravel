@@ -1,6 +1,31 @@
 import React, { Component } from 'react';
 import client from '../../config/client'
 import  firebase from 'firebase'
+import Forms from './form'
+import Forms2 from './form2'
+const Log =({handlerChangeMode})=>(
+  
+  <div>
+       <Forms />
+   <br/>
+  
+    <span onClick={()=>handlerChangeMode(false)}  style={{color:'red',textDecoration:'underline red' }}>  Registro</span>
+    </div>
+               
+)
+const Registro =({handlerChangeMode})=>(
+          
+      <div>
+      
+        <Forms2/>
+        <br/>
+
+      
+     <span onClick={()=>handlerChangeMode(true)} style={{color:'orange',textDecoration:'underline red'}} >  Ya tengo una cuenta</span>
+
+        </div>
+
+)
 class Login extends Component {
     handleAuth(){
         const provider = new firebase.auth.GoogleAuthProvider();
@@ -15,12 +40,16 @@ class Login extends Component {
       this.state = {
         email: '',
         password: '',
-        displayname:''
+        displayname:'',
+        Loginmode:true
       };
-      this.login = this.login.bind(this);
-      this.handleChange = this.handleChange.bind(this);
-      this.signup = this.signup.bind(this);
+     
     //   this.handleAuth = this.handleAuth.bind(this);
+    }
+    handlerChangeMode=(node)=>{
+      this.setState({
+        Loginmode:node
+      })
     }
     componentWillMount(){
         firebase.auth().onAuthStateChanged(user => {
@@ -34,51 +63,20 @@ class Login extends Component {
         .then(result => console.log(`${result.user.email} Has cerrado sesion`))
         .catch(error => console.log(`Error ${error.code}: ${error.message}`));
       }
-    handleChange(e) {
-      this.setState({ [e.target.name]: e.target.value });
-    }
-    
-    login(e) {
-      e.preventDefault();
-      client.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-      }).catch((error) => {
-          console.log(error);
-        });
-        
-    }
-  
-    signup(e){
-      e.preventDefault();
-      client.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-      }).then((u)=>{console.log(u)})
-      .catch((error) => {
-          console.log(error);
-        })
-    }
+   
     render() {
       return (
-         <div className="col-md-6">
-         <form>
-        <div class="form-group">
-         <label for="exampleInputEmail1">Email address</label>
-         <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-         <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-        </div>
-        <div class="form-group">
-        <label for="exampleInputPassword1">UserName</label>
-        <input value={this.state.displayname} onChange={this.handleChange} type="displayname" name="displayname" class="form-control" id="exampleInputPassword1" placeholder="Username" />
-        </div>
-        <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
-        <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Registro</button>
-        <button onClick={this.handleAuth}>Login con google</button>
-   </form>
-   
-   </div>
+      
+        <div>
+
+     {this.state.Loginmode
+        ?<Log handlerChangeMode={this.handlerChangeMode}/>
+        :<Registro handlerChangeMode={this.handlerChangeMode}/>
+      
+     }
+      </div>
       );
     }
   }
   export default Login;
+  
