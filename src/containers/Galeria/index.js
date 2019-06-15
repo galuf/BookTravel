@@ -5,7 +5,7 @@ import '../../App.css'
 import client from '../../config/client'
 import './styles.css';
 
-
+import Login  from '../Login'
 
 
 
@@ -31,6 +31,7 @@ class Galeria extends Component {
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
+ 
 //   componentDidMount() {
 //     this.authListener();
 //   }
@@ -72,7 +73,8 @@ class Galeria extends Component {
     }, () =>  storageRef.getDownloadURL().then(url =>  {
         const record = {
           photoURL: this.state.user.photoURL,
-          displayName: this.state.user.displayName,
+          displayName: this.state.user.displayName ,
+          email:this.state.user.email,
           image: url
         };
         const dbRef = firebase.database().ref('pictures');
@@ -82,6 +84,17 @@ class Galeria extends Component {
   }
 
   renderLoginButton(){
+    // var user = firebase.auth().currentUser;
+
+    // user.updateProfile({
+    //   displayName: "Jane Q. User",
+    // }).then(function() {
+    //   // Update successful.
+    //   console.log('asd')
+    // }).catch(function(error) {
+    //   // An error happened.
+    //   console.log('error')
+    // });
     //Si el usuario esta loguado 
     if(this.state.user){
       return(
@@ -98,7 +111,7 @@ class Galeria extends Component {
                 <figure className="App-card-image">
                   <img width="320" src={picture.image} />
                   <figCaption className="App-card-footer">
-                    <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} />
+                    {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
                     <span className="App-card-name">{picture.displayName}</span>
                   </figCaption>
                 </figure>
@@ -112,7 +125,7 @@ class Galeria extends Component {
     //Si no lo esta
     return(
     
-    <button onClick={this.handleAuth}>Registrarse</button>
+    <Login >Registrarse</Login>
     );
     }
   }

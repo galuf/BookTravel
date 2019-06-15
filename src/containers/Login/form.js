@@ -61,10 +61,11 @@ class Form extends Component {
         <label for="exampleInputPassword1">Password</label>
         <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
         </div>
-        <div class="form-group">
+       
+        {/* <div class="form-group">
         <label for="exampleInputPassword1">UserName</label>
         <input value={this.state.displayname} onChange={this.handleChange} type="displayname" name="displayname" class="form-control" id="exampleInputPassword1" placeholder="Username" />
-        </div>
+        </div> */}
         <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
         {/* <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Registro</button> */}
         {/* <button onClick={this.handleAuth}>Login con google</button> */}
