@@ -91,22 +91,22 @@ class Form2 extends Component {
       return (
          <div className="col-md-6">
          <form>
-        <div class="form-group">
-         <label for="exampleInputEmail1">Email address</label>
-         <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div className="form-group">
+         <label htmlFor="exampleInputEmail1">Email address</label>
+         <input value={this.state.email} onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+         <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="form-group">
-        <label for="exampleInputPassword1">UserName</label>
-        <input value={this.state.UserName} onChange={this.handleChange} type="UserName" name="UserName" class="form-control" id="exampleInputPassword1" placeholder="Username" />
+        <div className="form-group">
+        <label htmlFor="exampleInputPassword1">UserName</label>
+        <input value={this.state.UserName} onChange={this.handleChange} type="UserName" name="UserName" className="form-control" id="exampleInputPassword1" placeholder="Username" />
         </div>
-         <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+         <div className="form-group">
+        <label htmlFor="exampleInputPassword1">Password</label>
+        <input value={this.state.password} onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
         </div>
-        <div class="form-group">
-        <label for="exampleInputPassword2">Password</label>
-        <input value={this.state.passwordTwo} onChange={this.handleChange} type="password" name="passwordTwo" class="form-control" id="exampleInputPassword2" placeholder="Comfir Password" />
+        <div className="form-group">
+        <label htmlFor="exampleInputPassword2">Password</label>
+        <input value={this.state.passwordTwo} onChange={this.handleChange} type="password" name="passwordTwo" className="form-control" id="exampleInputPassword2" placeholder="Comfir Password" />
         </div>
         
         {/* <button type="submit" onClick={this.login} class="btn btn-primary">Login</button> */}

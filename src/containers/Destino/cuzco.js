@@ -59,7 +59,7 @@ export class Experiencia extends Component {
         <div>
            <HeaderHome titulo="Cuzco"/> 
          
-            {cuzco.map(cuzco=>{ return <Comentario cuzco={cuzco} />})}
+            {cuzco.map((cuzco , index)=>{ return <Comentario cuzco={cuzco} key={index}/>})}
              
         </div>
       )

@@ -56,7 +56,7 @@ export class Experiencia extends Component {
         <div>
            <HeaderHome titulo="Arequipa "/> 
          
-            {arequipa.map(arequipa=>{ return <Comentario arequipa={arequipa} />})}
+            {arequipa.map((arequipa, index)=>{ return <Comentario arequipa={arequipa} key={index}/>})}
              
         </div>
       )
