@@ -84,18 +84,7 @@ class Galeria extends Component {
   }
 
   renderLoginButton(){
-    // var user = firebase.auth().currentUser;
-
-    // user.updateProfile({
-    //   displayName: "Jane Q. User",
-    // }).then(function() {
-    //   // Update successful.
-    //   console.log('asd')
-    // }).catch(function(error) {
-    //   // An error happened.
-    //   console.log('error')
-    // });
-    //Si el usuario esta loguado 
+    
     if(this.state.user){
       return(
         <div>
