@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { navigate } from "@reach/router"
 import HeaderHome from '../../components/header'
 import { style } from '@material-ui/system';
-
+import  firebase from 'firebase'
 const FotoPerfil = styled.div`
   background-color: #E9EBEE; 
   height: 200px;
@@ -39,9 +39,51 @@ const Desc = styled.div`
   align-items : center;
 `
 
+const Upload = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+`
+
+
 class Usuario extends Component {
-  state = {
+  constructor(){
+    super()
+     this.state = {
     foto : 'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg'
+    }
+  this.handleUpload = this.handleUpload.bind(this);
+
+}
+  handleUpload(event){
+    const file = event.target.files[0];
+    const storageRef = firebase.storage().ref(`/fotos/${file.name}`);
+    const task = storageRef.put(file);
+    task.on('state_changed', snapshot => {
+        let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        this.setState({
+            uploadValue: percentage
+        })
+    }, error => { 
+        console.log(error.message) 
+    }, () =>  storageRef.getDownloadURL().then(foto =>  {
+      var user = firebase.auth().currentUser;
+
+      user.updateProfile({
+        
+        photoURL: foto
+      }).then(function() {
+        // Update successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+    
+    }));
   }
   render() {
     return (
@@ -56,6 +98,9 @@ class Usuario extends Component {
           }
           <Icono>
             <i className = "material-icons">photo_camera</i>
+            
+              <Upload type="file"   onChange={this.handleUpload} />
+            
           </Icono>
 
          </FotoPerfil>
