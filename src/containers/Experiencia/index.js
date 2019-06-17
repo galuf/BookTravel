@@ -14,8 +14,7 @@ const Texto = styled.div`
   width: 50%;
   height:20%;
   font-size: 12px;
-  
-  `
+`
 const ContForo = styled.div`
 
   display: flex;
@@ -29,34 +28,32 @@ const ContForo = styled.div`
 `
 export class Comentario extends Component{
 
-    render(){
-        const {experiencias}=this.props
-        return (
-            <ContForo >
-                <Imagen  src = {experiencias.urlImg}  alt=""/>  
-              
-                <Texto>  {experiencias.descripcion} </Texto>
-             </ContForo>
-        )
-    }
-
+  render(){
+    const {experiencias}=this.props
+    return (
+      <ContForo >
+        <Imagen  src = {experiencias.urlImg}  alt=""/>  
+          <Texto>  {experiencias.descripcion} </Texto>
+      </ContForo>
+    )
+  }
 }
 
 export class Experiencia extends Component {
-    state = {
-      experiencias :experiencias
-    }
-    render() {
-      const { experiencias } = this.state;
-      return (
-        <div>
-           <HeaderHome titulo="Experiencia"/> 
-         
-            {experiencias.map(experiencias=>{ return <Comentario experiencias={experiencias} />})}
-             
-        </div>
-      )
-    }
+  state = {
+    experiencias :experiencias
   }
-  
-  export default Experiencia
+  render() {
+    const { experiencias } = this.state;
+    return (
+      <div>
+        <HeaderHome titulo="Experiencia"/> 
+      
+          {experiencias.map( (experiencias, index)=>{ return <Comentario experiencias={experiencias} key={index}/>})}
+          
+      </div>
+    )
+  }
+}
+
+export default Experiencia

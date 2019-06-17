@@ -4,17 +4,8 @@ import FileUpload from './FileUpload';
 import '../../App.css'
 import client from '../../config/client'
 import './styles.css';
-
+import HeaderHome from '../../components/header'
 import Login  from '../Login'
-
-
-
-// const HeaderHome = () => (
-//   <HeaderHomeWrapper>
-//     <i className = "material-icons">menu</i>
-//     <span>Galeria</span>
-//   </HeaderHomeWrapper>
-// )
 
 
 class Galeria extends Component {
@@ -100,20 +91,22 @@ class Galeria extends Component {
       return(
         <div>
           <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/>
+          
           <p>Hola { this.state.user.displayName }!</p>
+          
           <button onClick={this.handleLogOut}>Cerrar sesion</button>
           
           <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
 
           {
-            this.state.pictures.map(picture => (
-              <div className="App-card">
+            this.state.pictures.map((picture,index) => (
+              <div className="App-card" key={index}>
                 <figure className="App-card-image">
                   <img width="320" src={picture.image} />
-                  <figCaption className="App-card-footer">
+                  <figcaption className="App-card-footer">
                     {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
                     <span className="App-card-name">{picture.displayName}</span>
-                  </figCaption>
+                  </figcaption>
                 </figure>
               </div>
             )).reverse()
@@ -133,12 +126,10 @@ class Galeria extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Kraken</h1>
-        </header>
-        <p className="App-intro">
+        <HeaderHome titulo='Galeria'/>
+        <span className="App-intro">
          { this.renderLoginButton() }
-        </p>
+        </span>
       </div>
     );
   }

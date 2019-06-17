@@ -11,6 +11,7 @@ import SolAyuda from '../containers/SolAyuda';
 import BuscarGuia from '../containers/BuscarGuia';
 import BrindarAyuda from '../containers/BrindarAyuda';
 import Login    from   '../containers/Login'
+import Usuario from '../containers/UsuarioPerfil'
 
 import Galeria from '../containers/Galeria'
 import Presupuesto from '../containers/Presupuesto'
@@ -19,6 +20,7 @@ import Arequipa from   '../containers/Destino/arequipa'
 
 import MiExperiencias from '../containers/MisExperiencias';
 import GastronomiaWrapper from './Gastronomia';
+
 
 const Routes = () => (
   <Router>
@@ -33,7 +35,10 @@ const Routes = () => (
     <BrindarAyuda path="/BrindarAyuda"/>
 
     <GastronomiaWrapper path="/gastronomia/*"/>
+    
     <Login path="/login"/>
+    <Usuario path="/perfil"/>
+
     <Galeria path="/galeria"/>
     <Presupuesto path="/presupuesto"/>    
     <Cuzco path="/cuzco"/>
