@@ -62,6 +62,16 @@ class Galeria extends Component {
     }, error => { 
         console.log(error.message) 
     }, () =>  storageRef.getDownloadURL().then(url =>  {
+      //  var user = firebase.auth().currentUser;
+
+      //       user.updateProfile({
+      //         displayName: "Jane Q. User",
+      //         photoURL: url
+      //       }).then(function() {
+      //         // Update successful.
+      //       }).catch(function(error) {
+      //         // An error happened.
+      //       });
         const record = {
           photoURL: this.state.user.photoURL,
           displayName: this.state.user.displayName ,
