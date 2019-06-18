@@ -33,6 +33,7 @@
   .App-card {
     border: 1px solid #eaeaea;
     margin: 0.5em;
+    background-color: #76B39D;
   }
   
   .App-card-image {
@@ -59,6 +60,16 @@
     margin: 0.5em;
   }
   
+.username {
+  color: white;
+  font-weight: bold;
+
+}
+
+.descripcion {
+  color: white;
+}
+
   @keyframes App-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }

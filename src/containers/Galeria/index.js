@@ -6,7 +6,64 @@ import client from '../../config/client'
 import './styles.css';
 import HeaderHome from '../../components/header'
 import Login  from '../Login'
+import styled from 'styled-components'
 
+const Imagen = styled.img`
+  border-radius: 50%;
+  width: 100%;
+`
+const User = styled.div`
+  height: 70px;
+  width: 100%;
+  display: flex;
+  padding : 10px;
+  margin-bottom: 10px;
+`
+const Caja = styled.div`
+  height: 70px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+const Texto = styled.div`
+  height: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 10px;
+`
+const Subir = styled.div`
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+`
+
+const Mensaje = styled.p`
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid green;
+  border-radius: 5%;
+  margin:5px;
+`
+
+const Usuario = ({user})=>(
+  <User>
+    <Caja>
+      <Imagen src="https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg" alt=""/>
+    </Caja>
+    <Texto>
+      <span className='username'>{user}</span>
+      <span className='descripcion'> Breve Descripsion de Imagen </span>
+    </Texto>  
+  </User>
+)
 
 class Galeria extends Component {
 
@@ -89,22 +146,25 @@ class Galeria extends Component {
     if(this.state.user){
       return(
         <div>
-          <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/>
           
-          <p>Hola { this.state.user.displayName }!</p>
+          {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
           
-          <button onClick={this.handleLogOut}>Cerrar sesion</button>
-          
-          <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
+          <Subir>
+            <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
+            {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
+            <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
+          </Subir>
 
           {
             this.state.pictures.map((picture,index) => (
               <div className="App-card" key={index}>
                 <figure className="App-card-image">
+                  
+                  {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
+                  <Usuario user = {picture.displayName} ></Usuario>
                   <img width="320" src={picture.image} />
                   <figcaption className="App-card-footer">
                     {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
-                    <span className="App-card-name">{picture.displayName}</span>
                   </figcaption>
                 </figure>
               </div>
