@@ -4,6 +4,7 @@ import { navigate } from "@reach/router"
 import HeaderHome from '../../components/header'
 import { style } from '@material-ui/system';
 import  firebase from 'firebase'
+
 const FotoPerfil = styled.div`
   background-color: #E9EBEE; 
   height: 200px;
@@ -52,17 +53,38 @@ const Upload = styled.input`
 
 
 class Usuario extends Component {
-  constructor(){
-    super()
-     this.state = {
-    foto : 'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg'
-    }
+  constructor(props){
+    super(props)
+    
+    this.state = { 
+
+      user: null,
+
+     foto : 'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg' 
+    };
+
   this.handleUpload = this.handleUpload.bind(this);
 
 }
+componentWillMount(){
+
+  firebase.auth().onAuthStateChanged(user => {
+    this.setState({ user });
+  });
+
+}
+// componentDidMount(){
+//   var user = firebase.auth().currentUser;
+  
+//     this.setState({ foto: user.photoURL });
+    
+// }
+
   handleUpload(event){
+   
     const file = event.target.files[0];
     const storageRef = firebase.storage().ref(`/fotos/${file.name}`);
+
     const task = storageRef.put(file);
     task.on('state_changed', snapshot => {
         let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -71,31 +93,40 @@ class Usuario extends Component {
         })
     }, error => { 
         console.log(error.message) 
-    }, () =>  storageRef.getDownloadURL().then(foto =>  {
+    }, () =>  storageRef.getDownloadURL().then(url =>  {
       var user = firebase.auth().currentUser;
 
       user.updateProfile({
-        
-        photoURL: foto
+      //  this.state.user.photoURL
+
+        photoURL: url
+       
       }).then(function() {
         // Update successful.
+
+
       }).catch(function(error) {
         // An error happened.
       });
-    
+      this.setState({ foto: url });
+
     }));
+
   }
+  
   render() {
+    var user = firebase.auth().currentUser;
+
     return (
       <div>
          <HeaderHome titulo="Perfil"/>
 
         <User> 
-         <FotoPerfil>
-          {
-            // en esta parte se debe llamar la foto desde la base de datos
-            this.state.foto ? <Foto src={this.state.foto} alt=""/> : <div>Aqui la foto del</div>
-          }
+         <FotoPerfil >
+             
+
+            {/* // en esta parte se debe llamar la foto desde la base de datos */}
+            <Foto src={this.state.foto} alt=""/> 
           <Icono>
             <i className = "material-icons">photo_camera</i>
             

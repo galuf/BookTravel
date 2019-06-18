@@ -53,10 +53,10 @@ const Mensaje = styled.p`
   margin:5px;
 `
 
-const Usuario = ({user})=>(
+const Usuario = ({user,foto})=>(
   <User>
     <Caja>
-      <Imagen src="https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg" alt=""/>
+      <Imagen src={foto} alt=""/>
     </Caja>
     <Texto>
       <span className='username'>{user}</span>
@@ -147,7 +147,7 @@ class Galeria extends Component {
       return(
         <div>
           
-          {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
+          <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/>
           
           <Subir>
             <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
@@ -161,7 +161,7 @@ class Galeria extends Component {
                 <figure className="App-card-image">
                   
                   {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                  <Usuario user = {picture.displayName} ></Usuario>
+                  <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
                   <img width="320" src={picture.image} />
                   <figcaption className="App-card-footer">
                     {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
