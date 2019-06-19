@@ -14,6 +14,7 @@ const FotoPerfil = styled.div`
 `
 const Foto = styled.img`
   width: 100%;
+  height: 100%;
   border-radius: 50%;
 `
 const Icono = styled.div`

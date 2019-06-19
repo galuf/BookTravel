@@ -10,14 +10,18 @@ import styled from 'styled-components'
 
 const Imagen = styled.img`
   border-radius: 50%;
+  /* width: calc(100% -10px); */
   width: 100%;
+  height: 100%;
+  /* height: 60px;   */
 `
 const User = styled.div`
+  padding: 5px;
   height: 70px;
   width: 100%;
   display: flex;
-  padding : 10px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
+  align-self: center;
 `
 const Caja = styled.div`
   height: 70px;
@@ -25,15 +29,17 @@ const Caja = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
 `
 const Texto = styled.div`
   height: 70px;
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
   padding: 10px;
+
 `
 const Subir = styled.div`
   height: 100px;
@@ -56,7 +62,10 @@ const Mensaje = styled.p`
 const Usuario = ({user,foto})=>(
   <User>
     <Caja>
-      <Imagen src={foto} alt=""/>
+      {
+        foto ? <Imagen src={foto} alt=""/> : <Imagen src='https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg' alt=""/> 
+      }
+      
     </Caja>
     <Texto>
       <span className='username'>{user}</span>
@@ -147,7 +156,7 @@ class Galeria extends Component {
       return(
         <div>
           
-          <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/>
+          {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
           
           <Subir>
             <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
