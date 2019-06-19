@@ -53,6 +53,7 @@ const Upload = styled.input`
 
 
 class Usuario extends Component {
+  
   constructor(props){
     super(props)
     
@@ -60,12 +61,13 @@ class Usuario extends Component {
 
       user: null,
 
-     foto : 'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg' 
+     foto : 'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg'
     };
 
   this.handleUpload = this.handleUpload.bind(this);
 
 }
+
 componentWillMount(){
 
   firebase.auth().onAuthStateChanged(user => {
@@ -79,6 +81,21 @@ componentWillMount(){
 //     this.setState({ foto: user.photoURL });
     
 // }
+
+    
+  renderFoto(){
+    if(this.state.user){
+      if(this.state.user.photoURL)
+        return (
+          <Foto src={this.state.user.photoURL} alt=""/>
+        )
+      else {
+        return (
+          <Foto src={this.state.foto} alt=""/> 
+        )
+      }  
+    }
+  }
 
   handleUpload(event){
    
@@ -120,13 +137,14 @@ componentWillMount(){
     return (
       <div>
          <HeaderHome titulo="Perfil"/>
-
+         {console.log(user)}
         <User> 
          <FotoPerfil >
              
 
             {/* // en esta parte se debe llamar la foto desde la base de datos */}
-            <Foto src={this.state.foto} alt=""/> 
+            {/* <Foto src={this.state.foto} alt=""/>  */}
+            {this.renderFoto()}
           <Icono>
             <i className = "material-icons">photo_camera</i>
             
@@ -138,10 +156,11 @@ componentWillMount(){
         </User> 
 
         <Desc> 
+
           <span> User </span>
           <button> Haste Guia</button>
-        </Desc>  
 
+        </Desc>  
       </div>
     )
   }
