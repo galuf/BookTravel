@@ -60,7 +60,8 @@ class Usuario extends Component {
 
       user: null,
 
-     foto : 'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg' 
+     foto : '' ,
+     foto2:'https://bolavip.com/export/sites/bolavip/arte/usuario_null.jpg_1931756597.jpg'
     };
 
   this.handleUpload = this.handleUpload.bind(this);
@@ -75,8 +76,11 @@ componentWillMount(){
 }
 // componentDidMount(){
 //   var user = firebase.auth().currentUser;
+
+//     this.setState({ foto: user.photoURL});
+
+ 
   
-//     this.setState({ foto: user.photoURL });
     
 // }
 
@@ -126,7 +130,8 @@ componentWillMount(){
              
 
             {/* // en esta parte se debe llamar la foto desde la base de datos */}
-            <Foto src={this.state.foto} alt=""/> 
+            
+            {this.state.foto ? <Foto src={this.state.foto}/> :<Foto src={this.state.foto2}/>}
           <Icono>
             <i className = "material-icons">photo_camera</i>
             
