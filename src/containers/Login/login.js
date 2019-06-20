@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import client from '../../config/client'
 import  firebase from 'firebase'
-import Forms from './form'
+import Formulario from './form'
 import Forms2 from './form2'
+import styled from 'styled-components'
+import HeaderHome from '../../components/header'
+
+const Sesion = styled.div`
+  width: 100%;
+
+`
+const Registrate = styled.div`
+  text-align: center;
+  margin-top: 20px;
+`
 const Log =({handlerChangeMode})=>(
   
-  <div>
-       <Forms />
-   <br/>
-  
-    <span onClick={()=>handlerChangeMode(false)}  style={{color:'red',textDecoration:'underline red' }}>  Registro</span>
-    </div>
+  <Sesion>
+    <Formulario /> <br/>
+    <Registrate onClick={()=>handlerChangeMode(false)}  
+          style={{color:'green',textDecoration:'underline green' }}>  Registrate </Registrate>
+  </Sesion>
                
 )
+
 const Registro =({handlerChangeMode})=>(
           
       <div>
@@ -21,7 +32,7 @@ const Registro =({handlerChangeMode})=>(
         <br/>
 
       
-     <span onClick={()=>handlerChangeMode(true)} style={{color:'orange',textDecoration:'underline red'}} >  Ya tengo una cuenta</span>
+     <Registrate onClick={()=>handlerChangeMode(true)} style={{color:'green',textDecoration:'underline green'}} >  Ya tengo una cuenta</Registrate>
 
         </div>
 
@@ -67,8 +78,9 @@ class Login extends Component {
     render() {
       return (
       
-        <div>
+      <div>
 
+      <HeaderHome titulo="Iniciar Sesion"/>
      {this.state.Loginmode
         ?<Log handlerChangeMode={this.handlerChangeMode}/>
         :<Registro handlerChangeMode={this.handlerChangeMode}/>

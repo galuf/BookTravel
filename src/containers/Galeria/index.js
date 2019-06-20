@@ -10,10 +10,8 @@ import styled from 'styled-components'
 
 const Imagen = styled.img`
   border-radius: 50%;
-  /* width: calc(100% -10px); */
   width: 100%;
   height: 100%;
-  /* height: 60px;   */
 `
 const User = styled.div`
   padding: 5px;

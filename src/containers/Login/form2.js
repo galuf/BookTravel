@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import client from '../../config/client'
 import  firebase from 'firebase'
+import styled from  'styled-components'
+
 const INITIAL_STATE = {
   UserName: '',
   email: '',
@@ -8,6 +10,30 @@ const INITIAL_STATE = {
   passwordTwo: '',
   error: null,
 };
+
+const Registro = styled.input`
+  width: 80%;
+  height: 40px;
+  margin-top: 25px;
+  border: 2px solid #76B39D;
+  border-radius: 4px;
+  padding: 5px;
+  padding-left: 15px;
+`
+const Boton = styled.button`
+  width: 85%;
+  background-color: #76B39D;
+  height: 40px;
+  color : white;
+  margin: 7px;
+  margin-top: 15px;
+`
+const Forms = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 class Form2 extends Component {
     handleAuth(){
@@ -89,34 +115,45 @@ class Form2 extends Component {
       email === '' ||
       UserName === '';
       return (
-         <div className="col-md-6">
-         <form>
-        <div className="form-group">
-         <label htmlFor="exampleInputEmail1">Email address</label>
-         <input value={this.state.email} onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-         <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div className="form-group">
-        <label htmlFor="exampleInputPassword1">UserName</label>
-        <input value={this.state.UserName} onChange={this.handleChange} type="UserName" name="UserName" className="form-control" id="exampleInputPassword1" placeholder="Username" />
-        </div>
-         <div className="form-group">
-        <label htmlFor="exampleInputPassword1">Password</label>
-        <input value={this.state.password} onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-        </div>
-        <div className="form-group">
-        <label htmlFor="exampleInputPassword2">Password</label>
-        <input value={this.state.passwordTwo} onChange={this.handleChange} type="password" name="passwordTwo" className="form-control" id="exampleInputPassword2" placeholder="Comfir Password" />
-        </div>
+      
+      <div className="col-md-6">
+        <Forms>    
+          <Registro value={this.state.email} 
+                 onChange={this.handleChange} 
+                 type="email" name="email" 
+                 className="form-control" 
+                 id="exampleInputEmail1" 
+                 aria-describedby="emailHelp" 
+                 placeholder="Ingresa tu Correo Electronico" />
+          
+          <Registro value={this.state.UserName} 
+                 onChange={this.handleChange} 
+                 type="UserName" name="UserName" 
+                 className="form-control" 
+                 id="exampleInputPassword1" 
+                 placeholder="Username" />
         
-        {/* <button type="submit" onClick={this.login} class="btn btn-primary">Login</button> */}
-        <button onClick={this.signup}  disabled={isInvalid} style={{marginLeft: '25px'}} className="btn btn-success">Registro</button>
-        <button onClick={this.handleAuth}>Login con google</button>
-        {error && <p>{error.message}</p>}
+          <Registro value={this.state.password} 
+                 onChange={this.handleChange} 
+                 type="password" name="password" 
+                 className="form-control" 
+                 id="exampleInputPassword1" 
+                 placeholder="Password" />
+        
+          <Registro value={this.state.passwordTwo} 
+                 onChange={this.handleChange} 
+                 type="password" name="passwordTwo" 
+                 className="form-control" 
+                 id="exampleInputPassword2" 
+                 placeholder="Comfirmar Password" />
+        
+          {/* <button type="submit" onClick={this.login} class="btn btn-primary">Login</button> */}
+          <Boton onClick={this.signup}  disabled={isInvalid} className="btn btn-success">Registro</Boton>
+          <Boton onClick={this.handleAuth}>Usar cuenta de google</Boton>
+          {error && <p>{error.message}</p>}
 
-   </form>
-   
-   </div>
+        </Forms>
+      </div>
       );
     }
   }
