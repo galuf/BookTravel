@@ -8,7 +8,6 @@ import HeaderHome from '../../components/header'
 import Login  from '../Login'
 import styled from 'styled-components'
 
-
 const Imagen = styled.img`
   border-radius: 50%;
   width: 100%;
@@ -154,18 +153,10 @@ class Galeria extends Component {
   }
 
   renderLoginButton(){
-    
-    if(this.state.user){
       return(
         <div>
           
           {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
-          
-          <Subir>
-            <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
-            {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
-            <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
-          </Subir>
 
           {
             this.state.pictures.map((picture,index) => (
@@ -185,13 +176,6 @@ class Galeria extends Component {
 
         </div>
       );
-    }else{
-    //Si no lo esta
-    return(
-    
-    <Login >Registrarse</Login>
-    );
-    }
   }
 
   render() {

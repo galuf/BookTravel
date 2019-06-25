@@ -12,7 +12,8 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import client from '../config/client'
 import features from '../utils/features'
-
+import items from './items.js'
+import myitems from './myitems.js'
 
 const useStyles = makeStyles({
   list: {
@@ -28,6 +29,19 @@ const Button = styled.button`
   color: white;
   border: 2px solid white;
   padding: 8px; 
+  width: 80%;
+  margin-top: 5px;
+  font-size: 15px;
+`
+
+const Perfil = styled.button`
+  background-color:white;
+  border: 2px solid #76B39D;
+  padding: 8px; 
+  width: 80%;
+  margin-bottom: 5px;
+  color: #76B39D;
+  font-size: 15px;
 `
 
 const HeaderHomeWrapper = styled.div`
@@ -60,6 +74,21 @@ const Boton = styled.div`
   display: flex;
   justify-content:flex-end;
 `
+
+const SesionStyle = {
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContend: 'center',
+}
+ 
+const BotonStyle = {
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContend: 'center',
+  alignItems: 'center',
+}
 
 class Sesion extends React.Component{
 
@@ -94,11 +123,27 @@ class Sesion extends React.Component{
   renderUser(){
     if(this.state.user){
         return (
-           <Button onClick={this.logout}> Log Out</Button>
+        <List style={SesionStyle}> 
+          {  
+            myitems.map((text, index) => (
+              <ListItem button key={index} onClick={ () => {navigate(`${text.link}`)} }>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text.name} />
+              </ListItem>
+              ))         
+          }  
+          <div style={BotonStyle}>
+            <Perfil onClick={ () => {navigate('./perfil')}}> Perfil </Perfil>
+            <Button onClick={this.logout}> Log Out</Button>
+          </div>
+        </List>
+           
         )
     }else {
         return (
-          <Button onClick={ ()=>{ navigate('./login') }}> Iniciar Sesion</Button>
+          <div style={BotonStyle}>
+            <Button onClick={ ()=>{ navigate('./login') }}> Iniciar Sesion</Button>
+          </div>
         )
     }  
   }
@@ -111,6 +156,7 @@ class Sesion extends React.Component{
     )
   }
 }
+
 
 function HeaderHome(props) {
     
@@ -136,30 +182,21 @@ function HeaderHome(props) {
       onKeyDown={toggleDrawer(side, false)}
     >
       
-      <Inicio>BookTravel</Inicio>  
+      <Inicio onClick={ () => {navigate('/')}} >BookTravel</Inicio>  
 
       <Divider />
       <List>
         {
 
-          ['Que Hacer', 'Destinos', 'Experiencias', 'Gastronomia', 'Galeria', 'Presupuesto'].map((text, index) => (
-          <ListItem button key={text} onClick={ () => {navigate("/")} }>
+          items.map((text, index) => (
+          <ListItem button key={index} onClick={ () => {navigate(`${text.link}`)} }>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={text.item} />
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {  
-          ['Mis Experiencias', 'Solicitar Ayuda', 'Buscar Guia', 'Brindar Ayuda'].map((text, index) => (
-          <ListItem button key={text}>
-          <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-          <ListItemText primary={text} />
-          </ListItem>
-          ))         
-        }  
-      </List>
+      <Sesion/>
     </div>
   );
 
@@ -175,10 +212,9 @@ function HeaderHome(props) {
       >
         {sideList('left')}
       </SwipeableDrawer>
-      <Sesion/> 
+       
     </HeaderHomeWrapper>
     )
 }
   
-
 export default HeaderHome  

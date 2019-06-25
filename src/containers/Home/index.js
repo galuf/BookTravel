@@ -8,7 +8,7 @@ import ToastServive from 'react-material-toast';
 
 const toast = ToastServive.new({
   place:'bottomRight',
-  duration:2,
+  duration:1.5,
   maxCount:1
 });
 
@@ -58,10 +58,9 @@ const FeatureWrapper = styled.div`
   }
 `
 
-
-const Feature = ({item: {urlImg, iconName, title, bg, link }, user }) => (
+const Feature = ({item: {urlImg, iconName, title, bg, link , estado}, user }) => (
   <FeatureWrapper bg = { bg ? "true": "false"} onClick = { () => {
-    if(user){
+    if(user || !estado){
       navigate(link)
     }else{
       const id = toast.info('Debes Iniciar Sesion',()=>{
