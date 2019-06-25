@@ -46,10 +46,7 @@ class Form2 extends Component {
       super(props);
      
       this.state = { ...INITIAL_STATE };
-
-     
-
- 
+       
     //   this.login = this.login.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.signup = this.signup.bind(this);

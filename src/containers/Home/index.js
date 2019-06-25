@@ -4,6 +4,14 @@ import { navigate } from "@reach/router"
 import features from '../../utils/features'
 import HeaderHome from '../../components/header'
 import client from '../../config/client'
+import ToastServive from 'react-material-toast';
+
+const toast = ToastServive.new({
+  place:'bottomRight',
+  duration:2,
+  maxCount:1
+});
+
 const GridFeaturesWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -50,9 +58,16 @@ const FeatureWrapper = styled.div`
   }
 `
 
-const Feature = ({item: {urlImg, iconName, title, bg, link } }) => (
+
+const Feature = ({item: {urlImg, iconName, title, bg, link }, user }) => (
   <FeatureWrapper bg = { bg ? "true": "false"} onClick = { () => {
-    navigate(link)
+    if(user){
+      navigate(link)
+    }else{
+      const id = toast.info('Debes Iniciar Sesion',()=>{
+      console.log('closed')
+    });
+    }
   }}>
     <img src = {urlImg} alt = ""/>
     { !bg && <div className = "layer"/>}
@@ -63,10 +78,10 @@ const Feature = ({item: {urlImg, iconName, title, bg, link } }) => (
   </FeatureWrapper>
 )
 
-const GridFeatures = ({features}) => (
+const GridFeatures = ({features, user}) => (
   <GridFeaturesWrapper>
     { features.map(( item , index) => (
-      <Feature key = { index } item = {item}/>
+      <Feature key = { index } item = {item} user={user}/>
     ))}
   </GridFeaturesWrapper>
 )
@@ -80,15 +95,33 @@ export class Home extends Component {
     client.auth().signOut()
   }
   state = {
-    features: features
+    features: features,
+    user:null
   }
+  
+  componentDidMount() {
+    this.authListener();
+  }
+  
+  authListener() {
+    client.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem('user');
+      }
+    });
+  }
+
   render() {
-    const { features } = this.state;
+    const { features, user } = this.state;
     return (
       <div>
         <HeaderHome titulo = "Inicio"/>
-        <button onClick={this.logout}> logout</button> 
-        <GridFeatures features = { features }/>
+        <GridFeatures features = { features } user = {user}/>
       </div>
     )
   }

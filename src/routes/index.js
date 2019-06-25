@@ -24,6 +24,8 @@ import GastronomiaWrapper from './Gastronomia';
 
 const Routes = () => (
   <Router>
+    <Login path="/login"/>
+    
     <Home path="/"/>
     <Hacer path="/hacer"/>
     <Destino path="/destino"/>
@@ -36,7 +38,6 @@ const Routes = () => (
 
     <GastronomiaWrapper path="/gastronomia/*"/>
     
-    <Login path="/login"/>
     <Usuario path="/perfil"/>
 
     <Galeria path="/galeria"/>

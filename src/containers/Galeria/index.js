@@ -8,10 +8,14 @@ import HeaderHome from '../../components/header'
 import Login  from '../Login'
 import styled from 'styled-components'
 
+
 const Imagen = styled.img`
   border-radius: 50%;
   width: 100%;
-  height: 100%;
+  height: 57px;
+  position: absolute;
+  top: -2px;
+  left: 1px;
 `
 const User = styled.div`
   padding: 5px;
@@ -19,15 +23,12 @@ const User = styled.div`
   width: 100%;
   display: flex;
   margin-bottom: 7px;
-  align-self: center;
+  /* align-self: center; */
 `
 const Caja = styled.div`
-  height: 70px;
-  width: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  height: 60px;
+  width: 60px;
+  position: relative;
 `
 const Texto = styled.div`
   height: 70px;
@@ -37,7 +38,6 @@ const Texto = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   padding: 10px;
-
 `
 const Subir = styled.div`
   height: 100px;
@@ -56,6 +56,11 @@ const Mensaje = styled.p`
   border-radius: 5%;
   margin:5px;
 `
+const TextoDesc = styled.span`
+  text-align:    start;
+  font-size: 12px;
+  margin: 2px;
+`
 
 const Usuario = ({user,foto})=>(
   <User>
@@ -67,7 +72,7 @@ const Usuario = ({user,foto})=>(
     </Caja>
     <Texto>
       <span className='username'>{user}</span>
-      <span className='descripcion'> Breve Descripsion de Imagen </span>
+      <TextoDesc className='descripcion'> Descripcion de Imagen </TextoDesc>
     </Texto>  
   </User>
 )
