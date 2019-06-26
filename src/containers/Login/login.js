@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import client from '../../config/client'
+//import client from '../../config/client'
 import  firebase from 'firebase'
 import Formulario from './form'
 import Forms2 from './form2'
