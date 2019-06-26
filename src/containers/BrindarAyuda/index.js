@@ -177,7 +177,7 @@ class BrindarAyuda extends React.Component{
 
             this.state.commentAnuncios.map((anuncio,index) => {
               console.log("----> ",anuncio.userName);
-              if(anuncio.userName == this.state.user.displayName){
+              //if(anuncio.userName == this.state.user.displayName){
                 //var userImagen="";
                 //this.uploadUserTemp(anuncio.userUID).bind(this);
 
@@ -196,7 +196,7 @@ class BrindarAyuda extends React.Component{
                     </figure>
                   </div>
                 )
-              }
+              //}
             }).reverse()
           }
 
