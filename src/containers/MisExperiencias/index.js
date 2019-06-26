@@ -168,19 +168,23 @@ class MiExperiencias extends Component {
           </Subir>
 
           {
-            this.state.pictures.map((picture,index) => (
-              <div className="App-card" key={index}>
-                <figure className="App-card-image">
-                  
-                  {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                  <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
-                  <img width="320" src={picture.image} />
-                  <figcaption className="App-card-footer">
-                    {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
-                  </figcaption>
-                </figure>
-              </div>
-            )).reverse()
+            this.state.pictures.map((picture,index) => {
+              if(picture.displayName === this.state.user.displayName){
+                return(
+                  <div className="App-card" key={index}>
+                    <figure className="App-card-image">
+                      
+                      {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
+                      <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
+                      <img width="320" src={picture.image} />
+                      <figcaption className="App-card-footer">
+                        {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
+                      </figcaption>
+                    </figure>
+                  </div>
+                )
+              }
+            }).reverse()
           }
 
         </div>

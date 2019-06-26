@@ -8,7 +8,7 @@ import ToastServive from 'react-material-toast';
 
 const toast = ToastServive.new({
   place:'bottomRight',
-  duration:1.5,
+  duration:1,
   maxCount:1
 });
 
