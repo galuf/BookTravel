@@ -7,6 +7,7 @@ import './styles.css';
 import HeaderHome from '../../components/header'
 import Login  from '../Login'
 import styled from 'styled-components'
+import { Input, Button } from '@material-ui/core';
 
 
 const Imagen = styled.img`
@@ -62,7 +63,7 @@ const TextoDesc = styled.span`
   margin: 2px;
 `
 
-const Usuario = ({user,foto})=>(
+const Usuario = ({user,foto,comentario})=>(
   <User>
     <Caja>
       {
@@ -72,7 +73,8 @@ const Usuario = ({user,foto})=>(
     </Caja>
     <Texto>
       <span className='username'>{user}</span>
-      <TextoDesc className='descripcion'> Descripcion de Imagen </TextoDesc>
+
+      <TextoDesc className='descripcion'> <p style={{}}> Descripcion de Imagen:</p>  {comentario}</TextoDesc>
     </Texto>  
   </User>
 )
@@ -83,7 +85,11 @@ class MiExperiencias extends Component {
     super(); 
     this.state = {
       user: null,
-      pictures: []
+      pictures: [],
+      userInput:'',
+      comentario:'',
+      pictureSend:'',
+      list:[]
     }
     // this.authListener = this.authListener.bind(this);
 
@@ -95,6 +101,44 @@ class MiExperiencias extends Component {
 //   componentDidMount() {
 //     this.authListener();
 //   }
+changeUserInput(input){
+  this.setState({
+    userInput:input
+  });
+}
+addTolist(input){
+  let listArray=this.state.list;
+  listArray.push(input)
+  this.setState({
+    list:listArray,
+    comentario:input,
+    userInput:''
+  })
+  var user = firebase.auth().currentUser;
+
+  user.updateProfile({
+    comentario: input,
+  }).then(function() {
+    // Update successful.
+    console.log('asd')
+  }).catch(function(error) {
+    // An error happened.
+    console.log('error')
+  });
+
+  //-----------------------subir a la base de datos
+  const record = {
+    displayName: this.state.user.displayName ,
+    email:this.state.user.email,
+    comentario:input,
+    image:this.state.pictureSend
+  };
+
+  const dbRef = firebase.database().ref('pictures');
+  const newPicture = dbRef.push();
+  newPicture.set(record);
+}
+
   componentWillMount(){
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user });
@@ -145,46 +189,68 @@ class MiExperiencias extends Component {
           photoURL: this.state.user.photoURL,
           displayName: this.state.user.displayName ,
           email:this.state.user.email,
-          image: url
+          image: url,
+          comentario:''
         };
-        const dbRef = firebase.database().ref('pictures');
-        const newPicture = dbRef.push();
-        newPicture.set(record);
+
+        // descomentar para subir la foto directamente
+        //const dbRef = firebase.database().ref('pictures');
+        //const newPicture = dbRef.push();
+        //newPicture.set(record);
+        this.setState({
+          pictureSend:url
+        });
+
     }));
   }
 
   renderLoginButton(){
-    
+
+    // client.database().ref('pictures').on('child_added', snapshot => {
+    //   this.setState({
+    //     pictures: this.state.pictures.concat(snapshot.val())
+    //   });
+    // });
     if(this.state.user){
       return(
         <div>
           
           {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
           
+          <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
+          <div style={{border:"1px solid black"}}>
           <Subir>
-            <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
-            {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
+            
+            
             <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
+              <Input 
+                type="text" 
+                onChange={(e)=>this.changeUserInput(e.target.value)}
+                placeholder="ingrese su experiencia" 
+                value={this.state.userInput}  />  
+              <Button onClick={()=>this.addTolist(this.state.userInput)} >  comentar </Button>
+            
+            {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
+            
           </Subir>
 
+          </div>
+
           {
-            this.state.pictures.map((picture,index) => {
-              if(picture.displayName === this.state.user.displayName){
-                return(
-                  <div className="App-card" key={index}>
-                    <figure className="App-card-image">
-                      
-                      {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                      <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
-                      <img width="320" src={picture.image} />
-                      <figcaption className="App-card-footer">
-                        {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
-                      </figcaption>
-                    </figure>
-                  </div>
-                )
-              }
-            }).reverse()
+            this.state.pictures.map((picture,index) => (
+              <div className="App-card" key={index}>
+                <figure className="App-card-image">
+                {/* comentario={this.state.comentario}  */}
+                  {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
+                  <Usuario user = {picture.displayName}  comentario={this.state.comentario}  foto={picture.photoURL}></Usuario>
+                  {/* <Usuario user = {picture.displayName}  comentario={picture.comentario}  foto={picture.photoURL}></Usuario> */}
+                  <img width="320" src={picture.image} />
+                  <figcaption className="App-card-footer">
+                    {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
+                  </figcaption>
+                </figure>
+              </div>
+            )).reverse()
           }
 
         </div>
