@@ -106,10 +106,34 @@ changeUserInput(input){
   });
 }
 addTolist(input){
+  let listArray=this.state.list;
+  listArray.push(input)
   this.setState({
+    list:listArray,
     comentario:input,
     userInput:''
   })
+  var user = firebase.auth().currentUser;
+
+  user.updateProfile({
+    comentario: input,
+  }).then(function() {
+    // Update successful.
+    console.log('asd')
+  }).catch(function(error) {
+    // An error happened.
+    console.log('error')
+  });
+
+  // const record = {
+  //   photoURL: this.state.user.photoURL,
+  //   displayName: this.state.user.displayName ,
+  //   email:this.state.user.email,
+  //   comentario:input
+  // };
+  // const dbRef = firebase.database().ref('pictures');
+  // const newPicture = dbRef.push();
+  // newPicture.set(record);
 }
   componentWillMount(){
     firebase.auth().onAuthStateChanged(user => {
@@ -161,7 +185,8 @@ addTolist(input){
           photoURL: this.state.user.photoURL,
           displayName: this.state.user.displayName ,
           email:this.state.user.email,
-          image: url
+          image: url,
+          comentario:''
         };
         const dbRef = firebase.database().ref('pictures');
         const newPicture = dbRef.push();
@@ -193,9 +218,9 @@ addTolist(input){
             this.state.pictures.map((picture,index) => (
               <div className="App-card" key={index}>
                 <figure className="App-card-image">
-                  
+                {/* comentario={this.state.comentario}  */}
                   {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                  <Usuario user = {picture.displayName} comentario={this.state.comentario} foto={picture.photoURL}></Usuario>
+                  <Usuario user = {picture.displayName}  comentario={this.state.comentario}  foto={picture.photoURL}></Usuario>
                   <img width="320" src={picture.image} />
                   <figcaption className="App-card-footer">
                     {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}

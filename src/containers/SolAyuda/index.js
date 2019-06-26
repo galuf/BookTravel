@@ -1,9 +1,15 @@
 import React from 'react'
+import HeaderHome from '../../components/header'
 
-const SolAyuda = () => (
-  <div>
+class SolAyuda extends React.Component{
+  render(){
+    return(
+      <div>
+        <HeaderHome titulo = "Solicitar Ayuda"/>
 
-  </div>
-)
+      </div>
+    )
+  }
+}
 
 export default SolAyuda
