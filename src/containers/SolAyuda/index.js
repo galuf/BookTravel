@@ -6,7 +6,6 @@ class SolAyuda extends React.Component{
     return(
       <div>
         <HeaderHome titulo = "Solicitar Ayuda"/>
-
       </div>
     )
   }

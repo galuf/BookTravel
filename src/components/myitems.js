@@ -7,7 +7,7 @@ const myitems = [
     name: 'Solicitar Ayuda',
     link:'./SolAyuda',
   },{
-    name: 'Buscar Ayuda',
+    name: 'Buscar Guia',
     link:'./BuscarGuia',  
   },{
     name: 'Brindar Ayuda',

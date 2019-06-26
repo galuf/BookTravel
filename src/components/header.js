@@ -39,6 +39,7 @@ const Perfil = styled.button`
   border: 2px solid #76B39D;
   padding: 8px; 
   width: 80%;
+  margin-top: 5px;
   margin-bottom: 5px;
   color: #76B39D;
   font-size: 15px;
@@ -74,7 +75,10 @@ const Boton = styled.div`
   display: flex;
   justify-content:flex-end;
 `
-
+const Draw = styled.div`
+  width: 25px;
+  height: 25px;
+`
 const SesionStyle = {
   width: '100%',
   display: 'flex',
@@ -89,6 +93,7 @@ const BotonStyle = {
   justifyContend: 'center',
   alignItems: 'center',
 }
+
 
 class Sesion extends React.Component{
 
@@ -203,7 +208,9 @@ function HeaderHome(props) {
     return (
 
     <HeaderHomeWrapper>
-      <i className = "material-icons" onClick={toggleDrawer('left', true)}>menu</i>
+      <Draw  onClick={toggleDrawer('left', true)}>
+        <i className = "material-icons">menu</i>
+      </Draw>
       <span>{props.titulo}</span>
       <SwipeableDrawer
         open={state.left}
