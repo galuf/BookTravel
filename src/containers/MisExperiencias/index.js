@@ -7,6 +7,7 @@ import './styles.css';
 import HeaderHome from '../../components/header'
 import Login  from '../Login'
 import styled from 'styled-components'
+import { Input, Button } from '@material-ui/core';
 
 
 const Imagen = styled.img`
@@ -62,7 +63,7 @@ const TextoDesc = styled.span`
   margin: 2px;
 `
 
-const Usuario = ({user,foto})=>(
+const Usuario = ({user,foto,comentario})=>(
   <User>
     <Caja>
       {
@@ -72,7 +73,8 @@ const Usuario = ({user,foto})=>(
     </Caja>
     <Texto>
       <span className='username'>{user}</span>
-      <TextoDesc className='descripcion'> Descripcion de Imagen </TextoDesc>
+
+      <TextoDesc className='descripcion'> Descripcion de Imagen  {comentario}</TextoDesc>
     </Texto>  
   </User>
 )
@@ -83,7 +85,10 @@ class MiExperiencias extends Component {
     super(); 
     this.state = {
       user: null,
-      pictures: []
+      pictures: [],
+      userInput:'',
+      comentario:'',
+      list:[]
     }
     // this.authListener = this.authListener.bind(this);
 
@@ -95,6 +100,17 @@ class MiExperiencias extends Component {
 //   componentDidMount() {
 //     this.authListener();
 //   }
+changeUserInput(input){
+  this.setState({
+    userInput:input
+  });
+}
+addTolist(input){
+  this.setState({
+    comentario:input,
+    userInput:''
+  })
+}
   componentWillMount(){
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user });
@@ -163,6 +179,12 @@ class MiExperiencias extends Component {
           
           <Subir>
             <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
+            <Input 
+              type="text" 
+              onChange={(e)=>this.changeUserInput(e.target.value)}
+              placeholder="ingrese su experiencia" 
+              value={this.state.userInput}  />  
+            <Button onClick={()=>this.addTolist(this.state.userInput)} >  comentar </Button>
             {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
             <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
           </Subir>
@@ -173,7 +195,7 @@ class MiExperiencias extends Component {
                 <figure className="App-card-image">
                   
                   {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                  <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
+                  <Usuario user = {picture.displayName} comentario={this.state.comentario} foto={picture.photoURL}></Usuario>
                   <img width="320" src={picture.image} />
                   <figcaption className="App-card-footer">
                     {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
