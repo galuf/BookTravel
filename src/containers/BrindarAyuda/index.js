@@ -8,6 +8,8 @@ import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import numFormat from 'util';
+
 const Imagen = styled.img`
   border-radius: 50%;
   width: 100%;
@@ -94,6 +96,8 @@ const Usuario = ({user,foto})=>(
   </User>
 )
 
+let idAnuncioTemporal01=null;
+
 class BrindarAyuda extends React.Component{
 
 
@@ -103,7 +107,10 @@ class BrindarAyuda extends React.Component{
       user:null,
       userImagen:null,
       commentSend:null,
-      commentAnuncios:[]
+      responseSend:[],
+      idAnuncioTemp:null,
+      commentAnuncios:[],
+      respuestasAnuncios:[]
     }
   }
 
@@ -114,29 +121,29 @@ class BrindarAyuda extends React.Component{
       });
     });
 
-    // firebase.database().ref('pictures').on('child_added',snapshot=>{
-    //   this.setState({
-    //     pictures: this.state.pictures.concat(snapshot.val())
-    //   });
-    //   console.log(this.state.pictures);
-    // })
 
     firebase.database().ref('anunciosTable/').on('value',snap=>{
       const currentAnuncios = snap.val();
+      //permite 100 respuestas
       if(currentAnuncios!==null){
           this.setState({
-              commentAnuncios:currentAnuncios
+              commentAnuncios:currentAnuncios,
+              responseSend:Array(100)
           });
       }else{
         console.log("DB anunciosTable-> vacio");
-    }
+      }
+      
   });
   }
 
   handleSubmit(e){
+    console.log('A name was submitted: ', e.target);
     e.preventDefault();
     console.log('enter');
     //const list = this.state.messages;
+    
+
     const newAnuncio = {
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
@@ -152,25 +159,76 @@ class BrindarAyuda extends React.Component{
     this.setState({commentSend:''});
   }
 
+  handleSubmitResponse(e){
+    console.log('A name was submitted: ',e.target.name);
+    /*this.state({
+      idAnuncioTemp:e.target.name
+    });*/
+
+
+    const idAnuncioTemporal02 = e.target.name;
+    console.log("--------this.state.respuestasAnuncios>>>> ",Object.keys(this.state.commentAnuncios[Number(idAnuncioTemporal02)].respuestas).length);
+    e.preventDefault();
+    const newResponse = {
+        idResponse:Object.keys(this.state.commentAnuncios[Number(idAnuncioTemporal02)].respuestas).length,
+        userName:this.state.user.displayName,
+        userImagen:this.state.user.photoURL,
+        responseSend:this.state.responseSend[Number(idAnuncioTemporal02)]    
+    };
+    //console.log("photoURL-> ",this.state.user.photoURL);
+    console.log("idAnuncioTemp->",this.state.idAnuncioTemp);
+    console.log("newResponse->",newResponse);
+    let ruta=`anunciosTable/${e.target.name}/respuestas/${e.target.name}`+"-"+`${newResponse.idResponse}`;
+    console.log("ruta->",ruta)
+
+    
+    firebase.database().ref(ruta)
+    .set(newResponse);
+    let respuestas_input=this.state.responseSend;
+    respuestas_input[idAnuncioTemporal02]='';
+    this.setState({responseSend:respuestas_input});
+  }
+
   updateCommentSend(e){       
     this.setState({commentSend:e.target.value});
     //console.log(this.state.message);
   }
 
-  // uploadUserTemp(uid){
-  //   firebaseAdmin.auth().getUser(uid)
-  //               .then(function(userRecord) {
-  //                 // See the UserRecord reference doc for the contents of userRecord.
-  //                 //userImagen.set(userRecord.photoURL);
-  //                 console.log("Successfully fetched user data:", userRecord.toJSON());
-  //                 //this.state.setState(
-  //                   //userImagen:userRecord.photoURL
-  //                 //)
-  //               })
-  //               .catch(function(error) {
-  //                 console.log("Error fetching user data:", error);
-  //               });
-  // }
+  updateResponseSend(e){
+    let respuestas  =this.state.responseSend;
+    
+    respuestas[Number(e.target.name)]=e.target.value
+
+    this.setState({
+
+      responseSend:respuestas
+    });
+    
+  }
+
+  updateIdAnuncioTemp(id){
+    this.setState({
+      idAnuncioTemp:id
+    });
+  }
+
+  addResponse(e,idAnuncio){
+    e.preventDefault();
+    console.log('enter');
+    //const list = this.state.messages;
+    const newResponse = {
+        idResponse:this.state.respuestasAnuncios.length,
+        userName:this.state.user.displayName,
+        userImagen:this.state.user.photoURL,
+        responseSend:this.state.responseSend,    
+    };
+    //console.log("photoURL-> ",this.state.user.photoURL);
+
+    firebase.database().ref(`anunciosTable/${this.state.idAnuncioTemp}/respuestas/${numFormat.format('%5d',this.state.idAnuncioTemp)}${numFormat.format('%5d',newResponse.idResponse)}/`)
+    .set(newResponse);
+    this.setState({responseSend:''});
+  }
+
 
   renderSolAyuda(){
     
@@ -193,7 +251,11 @@ class BrindarAyuda extends React.Component{
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
-              console.log("----> ",anuncio.userName);
+              // let idAnuncioTemporal =anuncio.idAnuncio;
+              // this.setState({
+              //   idAnuncioTemp:idAnuncioTemporal
+              // });
+              //console.log("----> anuncio[",index,"]",this.state.commentAnuncios[index]);
               //if(anuncio.userName == this.state.user.displayName){
                 //var userImagen="";
                 //this.uploadUserTemp(anuncio.userUID).bind(this);
@@ -213,7 +275,40 @@ class BrindarAyuda extends React.Component{
                           {anuncio.commentSend}
                         </span>
                       </Ayuda>
-                      <div style={respuesta}>
+
+                      <div style={respuesta} key={index}>
+
+                        {/* Lo ideal seria que se pueda visualizar totdas las respuestas haciendo otra vez un mapeo a
+                            anuncio..respuestas que es un objeto con toas las respuestas
+                         */}
+
+                        {/* {
+                          
+                          
+                            <ul>
+                              {anuncio.respuestas.map(item => (
+                                <li key={item.id}>
+                                  <div>{item}</div>
+                                </li>
+                              ))}
+                            </ul>
+                        
+                          
+                        } */}
+                      <form name={index} onSubmit={this.handleSubmitResponse.bind(this)}>
+                        <TextField
+                            name={index}
+                            type="text"
+                            value={this.state.responseSend[index]}
+                            onChange={this.updateResponseSend.bind(this)}
+                          />
+                          
+                          <Button type="submit">
+                              Send
+                          </Button>
+                          
+                                
+                      </form>
                       <button style={{color:'white',                      
                                       border:'none',
                                       background: 'none',
