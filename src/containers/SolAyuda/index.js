@@ -157,7 +157,6 @@ class SolAyuda extends React.Component{
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
-        
         commentSend:this.state.commentSend
         
     };
@@ -241,7 +240,7 @@ class SolAyuda extends React.Component{
                       </div>
 
 
-                    </figure>
+                {}    </figure>
                   </div>
                 )
               }

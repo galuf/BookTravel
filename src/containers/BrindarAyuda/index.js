@@ -157,39 +157,11 @@ class BrindarAyuda extends React.Component{
     //console.log(this.state.message);
   }
 
-  // uploadUserTemp(uid){
-  //   firebaseAdmin.auth().getUser(uid)
-  //               .then(function(userRecord) {
-  //                 // See the UserRecord reference doc for the contents of userRecord.
-  //                 //userImagen.set(userRecord.photoURL);
-  //                 console.log("Successfully fetched user data:", userRecord.toJSON());
-  //                 //this.state.setState(
-  //                   //userImagen:userRecord.photoURL
-  //                 //)
-  //               })
-  //               .catch(function(error) {
-  //                 console.log("Error fetching user data:", error);
-  //               });
-  // }
-
   renderSolAyuda(){
     
     if(this.state.user){
       return(
         <div>
-          {/* <form onSubmit={this.handleSubmit.bind(this)}>
-            <TextField
-                type="text"
-                value={this.state.commentSend}
-                onChange={this.updateCommentSend.bind(this)}
-              />
-              
-              <Button type="submit">
-                  Send
-              </Button>
-              
-                     
-          </form> */}
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
