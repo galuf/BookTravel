@@ -60,7 +60,24 @@ const TextoDesc = styled.span`
   font-size: 12px;
   margin: 2px;
 `
+const Ayuda = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+  border: 8px double #76B39D;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+`
+const respuesta = {
+  width:'100%',
+  display:'flex',
+  justifyContent:'center',
+  margin: '5px'
 
+}
 
 const Usuario = ({user,foto})=>(
   <User>
@@ -187,12 +204,25 @@ class BrindarAyuda extends React.Component{
                       
                       {/* <span className="App-card-name"> Hola {anuncio.displayName}</span> */}
                       <Usuario user = {anuncio.userName}  foto={anuncio.userImagen}></Usuario>
-                      <p className="App-card-name">  Ayuda Solicitada:{anuncio.commentSend}</p>
-                      {/* <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
-                      <img width="320" src={picture.image} />
-                      <figcaption className="App-card-footer">
-                        //<img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> 
-                      </figcaption> */}
+                      <Ayuda>
+                        <p className="App-card-name" 
+                           style={{textAlign:'end', color:'green', margin:'5px', marginBottom:'10px'}}>  
+                          Ayuda Solicitada: 
+                        </p>    
+                        <span style={{textAlign:'justify'}}>
+                          {anuncio.commentSend}
+                        </span>
+                      </Ayuda>
+                      <div style={respuesta}>
+                      <button style={{color:'white',                      
+                                      border:'none',
+                                      background: 'none',
+                                      textDecoration:'underline', 
+                                      margin:'2px',
+                                      width:'100px',
+                                      height: '30px'}}>Responder</button>
+                      </div>
+                       
                     </figure>
                   </div>
                 )

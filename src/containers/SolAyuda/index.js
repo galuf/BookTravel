@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { placeholder } from '@babel/types';
 
 const Imagen = styled.img`
   border-radius: 50%;
@@ -61,6 +62,36 @@ const TextoDesc = styled.span`
   margin: 2px;
 `
 
+const Ayuda = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+  border: 8px double #76B39D;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+`
+const respuesta = {
+  width:'100%',
+  display:'flex',
+  justifyContent:'center',
+  margin: '5px'
+
+}
+
+const subir = {
+  border: '1px solid blue',
+  color: 'blue',
+  textDecoration: 'underline'
+}
+
+const Formulario = styled.form`
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+`
 
 const Usuario = ({user,foto})=>(
   <User>
@@ -162,19 +193,20 @@ class SolAyuda extends React.Component{
     if(this.state.user){
       return(
         <div>
-          <form onSubmit={this.handleSubmit.bind(this)}>
+          <Formulario onSubmit={this.handleSubmit.bind(this)}>
             <TextField
                 type="text"
                 value={this.state.commentSend}
                 onChange={this.updateCommentSend.bind(this)}
+                placeholder= 'Que problema tienes ? ' 
               />
               
-              <Button type="submit">
+              <Button type="submit" style={subir}>
                   Send
               </Button>
               
                      
-          </form>
+          </Formulario>
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
@@ -188,13 +220,27 @@ class SolAyuda extends React.Component{
                     <figure className="App-card-image">
                       
                       {/* <span className="App-card-name"> Hola {anuncio.displayName}</span> */}
-                      <Usuario user = {anuncio.userName}  foto={anuncio.userImagen}></Usuario>
-                      <p className="App-card-name">  Ayuda Solicitada:{anuncio.commentSend}</p>
-                      {/* <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
-                      <img width="320" src={picture.image} />
-                      <figcaption className="App-card-footer">
-                        //<img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> 
-                      </figcaption> */}
+                      <Usuario user = {anuncio.userName}  foto={anuncio.userImagen}></Usuario>                      
+                      <Ayuda>
+                        <p className="App-card-name" 
+                           style={{textAlign:'end', color:'green', margin:'5px'}}>  
+                          Ayuda Solicitada: 
+                        </p>    
+                        <span style={{textAlign:'justify'}}>
+                          {anuncio.commentSend}
+                        </span>
+                      </Ayuda>
+                      <div style={respuesta}>
+                      <button style={{color:'white',                      
+                                      border:'none',
+                                      background: 'none',
+                                      textDecoration:'underline', 
+                                      margin:'2px',
+                                      width:'150px',
+                                      height: '30px'}}>Ver Respuestas</button>
+                      </div>
+
+
                     </figure>
                   </div>
                 )
