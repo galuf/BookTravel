@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { placeholder } from '@babel/types';
 
+import numFormat from 'util';
+
 const Imagen = styled.img`
   border-radius: 50%;
   width: 100%;
@@ -108,6 +110,18 @@ const Usuario = ({user,foto})=>(
   </User>
 )
 
+// const Respuesta = ({foto,resp_all})=>(
+//   <div>
+//     {
+//       if (resp_all.length) {
+//         return(
+//           <span>sdcs</span>
+//         )   
+//       }
+//     }
+//   </div>
+// )
+
 class SolAyuda extends React.Component{
 
 
@@ -117,7 +131,9 @@ class SolAyuda extends React.Component{
       user:null,
       userImagen:null,
       commentSend:null,
-      commentAnuncios:[]
+      responseSend:null,
+      commentAnuncios:[],
+      respuestasAnuncios:[]
     }
   }
 
@@ -157,10 +173,15 @@ class SolAyuda extends React.Component{
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
+<<<<<<< HEAD
         commentSend:this.state.commentSend
+=======
+        commentSend:this.state.commentSend,
+        adResponses:[]
+>>>>>>> d49eebed4fbd91e77ac7f42dd9fb141785d934f2
         
     };
-    console.log("photoURL-> ",this.state.user.photoURL);
+    //console.log("photoURL-> ",this.state.user.photoURL);
 
     firebase.database().ref(`anunciosTable/${this.state.commentAnuncios.length}`)
     .set(newAnuncio);
@@ -169,23 +190,32 @@ class SolAyuda extends React.Component{
 
   updateCommentSend(e){       
     this.setState({commentSend:e.target.value});
-    //console.log(this.state.message);
+    
   }
 
-  // uploadUserTemp(uid){
-  //   firebaseAdmin.auth().getUser(uid)
-  //               .then(function(userRecord) {
-  //                 // See the UserRecord reference doc for the contents of userRecord.
-  //                 //userImagen.set(userRecord.photoURL);
-  //                 console.log("Successfully fetched user data:", userRecord.toJSON());
-  //                 //this.state.setState(
-  //                   //userImagen:userRecord.photoURL
-  //                 //)
-  //               })
-  //               .catch(function(error) {
-  //                 console.log("Error fetching user data:", error);
-  //               });
-  // }
+  
+  updateResponseSend(e){       
+    this.setState({responseSend:e.target.value});
+    
+  }
+
+  
+  addResponse(e,idAnuncio){
+    e.preventDefault();
+    console.log('enter');
+    //const list = this.state.messages;
+    const newResponse = {
+        idResponse:this.state.respuestasAnuncios.length,
+        userName:this.state.user.displayName,
+        userImagen:this.state.user.photoURL,
+        responseSend:this.state.responseSend,    
+    };
+    //console.log("photoURL-> ",this.state.user.photoURL);
+
+    firebase.database().ref(`anunciosTable/${idAnuncio}/respuestas/${numFormat.format('%5d',idAnuncio)}${numFormat.format('%5d',newResponse.idResponse)}/`)
+    .set(newResponse);
+    this.setState({responseSend:''});
+  }
 
   renderSolAyuda(){
     
@@ -240,9 +270,20 @@ class SolAyuda extends React.Component{
                       </div>
 
 
+<<<<<<< HEAD
                 {}    </figure>
+=======
+                    </figure>
+                    {/* {
+                      
+                      <Caja>asx</Caja>
+                    } */}
+>>>>>>> d49eebed4fbd91e77ac7f42dd9fb141785d934f2
                   </div>
                 )
+               
+                
+
               }
             }).reverse()
           }
