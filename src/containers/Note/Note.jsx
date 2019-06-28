@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components'
 
 const Imagen = styled.img`
-    max-width: 30%;
+	width: 30%;
+
+	height: 120px;
 `
 class Note extends Component {
 	
@@ -20,8 +22,8 @@ class Note extends Component {
 
 	render(props) {
 		return (
-			<div style={{ display:"flex" ,flexDirection:"row",justifyContent:"space-around"}}>
-        <Imagen src={require("../../utils/índice.jpeg")} alt=""/> 
+			<div style={{ display:"flex" ,flexDirection:"row",justifyContent:"space-around",marginTop:"15px"}}>
+        <Imagen src={"http://lorempixel.com/500/500/sports/"} alt=""/> 
 				<p
 					className="btn-close"
 					onClick={() => this.handleRemoveNote(this.noteId)}
