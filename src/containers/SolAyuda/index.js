@@ -302,16 +302,10 @@ class SolAyuda extends React.Component{
                             onChange={this.updateResponseSend.bind(this)}
                           />
                           <Button type="submit">
-                              Send
+                              SEND
                           </Button>            
                       </form>
-                      <button style={{color:'white',                      
-                                      border:'none',
-                                      background: 'none',
-                                      textDecoration:'underline', 
-                                      margin:'2px',
-                                      width:'150px',
-                                      height: '30px'}}>Ver Respuestas</button>
+                      
                       </div>
                     
                     
