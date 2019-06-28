@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import numFormat from 'util';
+//import numFormat from 'util';
 
 const Imagen = styled.img`
   border-radius: 50%;
@@ -148,8 +148,8 @@ class BrindarAyuda extends React.Component{
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
-        
-        commentSend:this.state.commentSend
+        commentSend:this.state.commentSend,
+        respuestas:[]
         
     };
     console.log("photoURL-> ",this.state.user.photoURL);
@@ -160,14 +160,14 @@ class BrindarAyuda extends React.Component{
   }
 
   handleSubmitResponse(e){
-    console.log('A name was submitted: ',e.target.name);
+    //console.log('A name was submitted: ',e.target.name);
     /*this.state({
       idAnuncioTemp:e.target.name
     });*/
 
 
     const idAnuncioTemporal02 = e.target.name;
-    console.log("--------this.state.respuestasAnuncios>>>> ",Object.keys(this.state.commentAnuncios[Number(idAnuncioTemporal02)].respuestas).length);
+    //console.log("--------this.state.respuestasAnuncios>>>> ",Object.keys(this.state.commentAnuncios[Number(idAnuncioTemporal02)].respuestas).length);
     e.preventDefault();
     const newResponse = {
         idResponse:Object.keys(this.state.commentAnuncios[Number(idAnuncioTemporal02)].respuestas).length,
@@ -176,28 +176,38 @@ class BrindarAyuda extends React.Component{
         responseSend:this.state.responseSend[Number(idAnuncioTemporal02)]    
     };
     //console.log("photoURL-> ",this.state.user.photoURL);
-    console.log("idAnuncioTemp->",this.state.idAnuncioTemp);
-    console.log("newResponse->",newResponse);
+    //console.log("idAnuncioTemp->",this.state.idAnuncioTemp);
+    //console.log("newResponse->",newResponse);
     let ruta=`anunciosTable/${e.target.name}/respuestas/${e.target.name}`+"-"+`${newResponse.idResponse}`;
-    console.log("ruta->",ruta)
+    //console.log("ruta->",ruta)
 
+    if(newResponse.responseSend){
+      firebase.database().ref(ruta).set(newResponse);
+      let respuestas_input=this.state.responseSend;
+      respuestas_input[idAnuncioTemporal02]='';
+      this.setState({responseSend:respuestas_input});
+    }else{
+      alert("Ingrese una respuesta! :)");
+    }
     
-    firebase.database().ref(ruta)
-    .set(newResponse);
-    let respuestas_input=this.state.responseSend;
-    respuestas_input[idAnuncioTemporal02]='';
-    this.setState({responseSend:respuestas_input});
   }
 
-  updateCommentSend(e){       
-    this.setState({commentSend:e.target.value});
+  updateCommentSend(e){
+    let valor =e.target.value;
+
+    e.preventDefault();
+    this.setState({commentSend:valor});
+    
     //console.log(this.state.message);
   }
 
   updateResponseSend(e){
+    let valor = e.target.value;
+    e.preventDefault();
     let respuestas  =this.state.responseSend;
     
-    respuestas[Number(e.target.name)]=e.target.value
+    e.preventDefault()
+    respuestas[Number(e.target.name)]=valor
 
     this.setState({
 
@@ -212,25 +222,25 @@ class BrindarAyuda extends React.Component{
     });
   }
 
-  addResponse(e,idAnuncio){
-    e.preventDefault();
-    console.log('enter');
-    //const list = this.state.messages;
-    const newResponse = {
-        idResponse:this.state.respuestasAnuncios.length,
-        userName:this.state.user.displayName,
-        userImagen:this.state.user.photoURL,
-        responseSend:this.state.responseSend,    
-    };
-    //console.log("photoURL-> ",this.state.user.photoURL);
+  // addResponse(e,idAnuncio){
+  //   e.preventDefault();
+  //   console.log('enter');
+  //   //const list = this.state.messages;
+  //   const newResponse = {
+  //       idResponse:this.state.respuestasAnuncios.length,
+  //       userName:this.state.user.displayName,
+  //       userImagen:this.state.user.photoURL,
+  //       responseSend:this.state.responseSend,    
+  //   };
+  //   //console.log("photoURL-> ",this.state.user.photoURL);
 
-    firebase.database().ref(`anunciosTable/${this.state.idAnuncioTemp}/respuestas/${numFormat.format('%5d',this.state.idAnuncioTemp)}${numFormat.format('%5d',newResponse.idResponse)}/`)
-    .set(newResponse);
-    this.setState({responseSend:''});
-  }
+  //   firebase.database().ref(`anunciosTable/${this.state.idAnuncioTemp}/respuestas/${numFormat.format('%5d',this.state.idAnuncioTemp)}${numFormat.format('%5d',newResponse.idResponse)}/`)
+  //   .set(newResponse);
+  //   this.setState({responseSend:''});
+  // }
 
 
-  renderSolAyuda(){
+  renderBrindarAyuda(){
     
     if(this.state.user){
       return(
@@ -251,15 +261,7 @@ class BrindarAyuda extends React.Component{
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
-              // let idAnuncioTemporal =anuncio.idAnuncio;
-              // this.setState({
-              //   idAnuncioTemp:idAnuncioTemporal
-              // });
-              //console.log("----> anuncio[",index,"]",this.state.commentAnuncios[index]);
-              //if(anuncio.userName == this.state.user.displayName){
-                //var userImagen="";
-                //this.uploadUserTemp(anuncio.userUID).bind(this);
-
+   
                 return(
                   <div className="App-card" key={index}>
                     <figure className="App-card-image">
@@ -278,23 +280,6 @@ class BrindarAyuda extends React.Component{
 
                       <div style={respuesta} key={index}>
 
-                        {/* Lo ideal seria que se pueda visualizar totdas las respuestas haciendo otra vez un mapeo a
-                            anuncio..respuestas que es un objeto con toas las respuestas
-                         */}
-
-                        {/* {
-                          
-                          
-                            <ul>
-                              {anuncio.respuestas.map(item => (
-                                <li key={item.id}>
-                                  <div>{item}</div>
-                                </li>
-                              ))}
-                            </ul>
-                        
-                          
-                        } */}
                       <form name={index} onSubmit={this.handleSubmitResponse.bind(this)}>
                         <TextField
                             name={index}
@@ -302,7 +287,8 @@ class BrindarAyuda extends React.Component{
                             value={this.state.responseSend[index]}
                             onChange={this.updateResponseSend.bind(this)}
                           />
-                          
+
+
                           <Button type="submit">
                               Send
                           </Button>
@@ -341,7 +327,7 @@ class BrindarAyuda extends React.Component{
       <div>
         <HeaderHome titulo = "Brindar Ayuda"/>
         <span className="App-intro">
-         { this.renderSolAyuda() }
+         { this.renderBrindarAyuda() }
         </span>
       </div>
     )
