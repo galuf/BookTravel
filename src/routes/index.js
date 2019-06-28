@@ -36,20 +36,9 @@ const Routes = () => (
     <BuscarGuia path="/BuscarGuia"/>
     <BrindarAyuda path="/BrindarAyuda"/>
 
-<<<<<<< HEAD
-    <Gastronomia path="/gastronomia"/> 
-    <Rocoto path="/gastronomia/rocoto"/>
-    <Ceviche path='gastronomia/ceviche'/>
-    <Seco path='gastronomia/seco'/>
-    <Pachamanca path='gastronomia/pachamanca'/>
-    <Trucha path='gastronomia/trucha'/> 
-    <Cuy path='gastronomia/cuy'/>
-    {/* <Login path="/login"/> */}
-=======
     <GastronomiaWrapper path="/gastronomia/*"/>
     
     <Usuario path="/perfil"/>
->>>>>>> origin/alex
 
     <Galeria path="/galeria"/>
     <Presupuesto path="/presupuesto"/>    
