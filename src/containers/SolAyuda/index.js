@@ -131,7 +131,7 @@ class SolAyuda extends React.Component{
       user:null,
       userImagen:null,
       commentSend:null,
-      responseSend:null,
+      responseSend:[],
       commentAnuncios:[],
       respuestasAnuncios:[]
     }
@@ -143,21 +143,15 @@ class SolAyuda extends React.Component{
         user:user
       });
     });
-
-    // firebase.database().ref('pictures').on('child_added',snapshot=>{
-    //   this.setState({
-    //     pictures: this.state.pictures.concat(snapshot.val())
-    //   });
-    //   console.log(this.state.pictures);
-    // })
-
     firebase.database().ref('anunciosTable/').on('value',snap=>{
       const currentAnuncios = snap.val();
+      //para 100 anuncios
       if(currentAnuncios!==null){
-          this.setState({
-              commentAnuncios:currentAnuncios
-          });
-      }else{
+        this.setState({
+            commentAnuncios:currentAnuncios,
+            responseSend:Array(100)
+        });
+    }else{
         console.log("DB anunciosTable-> vacio");
     }
   });
@@ -167,21 +161,50 @@ class SolAyuda extends React.Component{
 
   handleSubmit(e){
     e.preventDefault();
-    console.log('enter');
+    //console.log('enter');
     //const list = this.state.messages;
+
     const newAnuncio = {
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
         commentSend:this.state.commentSend,
-        adResponses:[]
+        respuestas:0
         
     };
     //console.log("photoURL-> ",this.state.user.photoURL);
-
-    firebase.database().ref(`anunciosTable/${this.state.commentAnuncios.length}`)
-    .set(newAnuncio);
+    if(this.state.commentSend){
+      firebase.database().ref(`anunciosTable/${this.state.commentAnuncios.length}`)
+      .set(newAnuncio);
+    }else{
+      alert("Ingrese una informacion para compartir! :)");
+    }
     this.setState({commentSend:''});
+  }
+
+  handleSubmitResponse(e){
+    const idAnuncioTemporal02 = e.target.name;
+    e.preventDefault();
+    const newResponse = {
+        idResponse:Object.keys(this.state.commentAnuncios[Number(idAnuncioTemporal02)].respuestas).length,
+        userName:this.state.user.displayName,
+        userImagen:this.state.user.photoURL,
+        responseSend:this.state.responseSend[Number(idAnuncioTemporal02)]    
+    };
+    //console.log("idAnuncioTemp->",this.state.idAnuncioTemp);
+    //console.log("newResponse->",newResponse);
+    let ruta=`anunciosTable/${e.target.name}/respuestas/${e.target.name}`+"-"+`${newResponse.idResponse}`;
+    //console.log("ruta->",ruta)
+
+    if(newResponse.responseSend){
+      firebase.database().ref(ruta).set(newResponse);
+      let respuestas_input=this.state.responseSend;
+      respuestas_input[idAnuncioTemporal02]='';
+      this.setState({responseSend:respuestas_input});
+    }else{
+      alert("Ingrese una respuesta! :)");
+    }
+    
   }
 
   updateCommentSend(e){       
@@ -190,21 +213,32 @@ class SolAyuda extends React.Component{
   }
 
   
-  updateResponseSend(e){       
-    this.setState({responseSend:e.target.value});
+  updateResponseSend(e){
+    let valor = e.target.value;
+    e.preventDefault();
+    let respuestas  =this.state.responseSend;
+    
+    e.preventDefault()
+    respuestas[Number(e.target.name)]=valor
+
+    this.setState({
+
+      responseSend:respuestas
+    });
     
   }
 
   
   addResponse(e,idAnuncio){
     e.preventDefault();
-    console.log('enter');
+    //console.log('enter');
     //const list = this.state.messages;
     const newResponse = {
         idResponse:this.state.respuestasAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
         responseSend:this.state.responseSend,    
+        respuestas:[]
     };
     //console.log("photoURL-> ",this.state.user.photoURL);
 
@@ -237,14 +271,11 @@ class SolAyuda extends React.Component{
             this.state.commentAnuncios.map((anuncio,index) => {
               console.log("----> ",anuncio.userName);
               if(anuncio.userName == this.state.user.displayName){
-                //var userImagen="";
-                //this.uploadUserTemp(anuncio.userUID).bind(this);
-
                 return(
                   <div className="App-card" key={index}>
                     <figure className="App-card-image">
                       
-                      {/* <span className="App-card-name"> Hola {anuncio.displayName}</span> */}
+                      
                       <Usuario user = {anuncio.userName}  foto={anuncio.userImagen}></Usuario>                      
                       <Ayuda>
                         <p className="App-card-name" 
@@ -256,6 +287,20 @@ class SolAyuda extends React.Component{
                         </span>
                       </Ayuda>
                       <div style={respuesta}>
+                      <form name={index} onSubmit={this.handleSubmitResponse.bind(this)}>
+                        <TextField
+                            name={index}
+                            type="text"
+                            value={this.state.responseSend[index]}
+                            onChange={this.updateResponseSend.bind(this)}
+                          />
+                          
+                          <Button type="submit">
+                              Send
+                          </Button>
+                          
+                                
+                      </form>
                       <button style={{color:'white',                      
                                       border:'none',
                                       background: 'none',
