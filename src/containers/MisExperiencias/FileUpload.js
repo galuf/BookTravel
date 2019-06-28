@@ -16,8 +16,8 @@ const Upload = styled.input`
 const Icono = styled.div`
   position: relative;
   color: white;
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   background-color: #76B39D;
   border-radius: 50%;
   display: flex;
@@ -27,7 +27,12 @@ const Icono = styled.div`
 `
 const Contenedor = styled.div`
   display: flex ;
+  flex-direction: column;
   align-items: center;
+`
+const Progres = styled.progress`
+  width: 50px;
+  height: 10px;
 `
 
 class FileUpload extends Component {
@@ -43,12 +48,11 @@ class FileUpload extends Component {
   render(){
     return(
       <Contenedor>
-        {/* <progress value={this.props.uploadValue} max="100"></progress> */}
-        <br/>
         <Icono>
           <i className = "material-icons">photo_camera</i>
           <Upload type="file" onChange={this.props.onUpload}/>
         </Icono>
+        <Progres value={this.props.uploadValue} max="100" ></Progres>
       </Contenedor>
     )
   }    

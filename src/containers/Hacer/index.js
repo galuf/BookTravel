@@ -89,7 +89,7 @@ class Hacer extends React.Component{
         return (
             <div> 
                 <div>
-                <HeaderHome titulo="Destinos"/>
+                <HeaderHome titulo="Que Hacer"/>
                 <Titulo>Atractivos Turisticos</Titulo>
 
               {

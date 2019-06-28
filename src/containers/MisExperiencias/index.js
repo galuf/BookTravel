@@ -7,7 +7,7 @@ import './styles.css';
 import HeaderHome from '../../components/header'
 import Login  from '../Login'
 import styled from 'styled-components'
-import { Input, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 
 const Imagen = styled.img`
@@ -62,7 +62,32 @@ const TextoDesc = styled.span`
   font-size: 12px;
   margin: 2px;
 `
+const ParaSubir = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:100%;
+`
+const publicar = {
+  height:'30px',
+  display: 'flex',
+  alignItems: 'center',
+  color : 'blue',
+  border: '1px solid blue',
+  marginTop: '10px',
+  fontSize: '10px',
+}
 
+const Input = styled.input`
+  border: 1px solid green;
+  height: 50px;
+  border-radius: 10px;
+  padding: 15px;
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-wrap:wrap;
+`
 const Usuario = ({user,foto,comentario})=>(
   <User>
     <Caja>
@@ -175,16 +200,6 @@ addTolist(input){
     }, error => { 
         console.log(error.message) 
     }, () =>  storageRef.getDownloadURL().then(url =>  {
-      //  var user = firebase.auth().currentUser;
-
-      //       user.updateProfile({
-      //         displayName: "Jane Q. User",
-      //         photoURL: url
-      //       }).then(function() {
-      //         // Update successful.
-      //       }).catch(function(error) {
-      //         // An error happened.
-      //       });
         const record = {
           photoURL: this.state.user.photoURL,
           displayName: this.state.user.displayName ,
@@ -193,10 +208,6 @@ addTolist(input){
           comentario:''
         };
 
-        // descomentar para subir la foto directamente
-        //const dbRef = firebase.database().ref('pictures');
-        //const newPicture = dbRef.push();
-        //newPicture.set(record);
         this.setState({
           pictureSend:url
         });
@@ -206,11 +217,6 @@ addTolist(input){
 
   renderLoginButton(){
 
-    // client.database().ref('pictures').on('child_added', snapshot => {
-    //   this.setState({
-    //     pictures: this.state.pictures.concat(snapshot.val())
-    //   });
-    // });
     if(this.state.user){
       return(
         <div>
@@ -218,17 +224,18 @@ addTolist(input){
           {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
           
           <Mensaje>Hola { this.state.user.displayName }! Comparte tus experiencias</Mensaje> 
-          <div style={{border:"1px solid black"}}>
+          <div>
           <Subir>
-            
-            
-            <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
               <Input 
                 type="text" 
                 onChange={(e)=>this.changeUserInput(e.target.value)}
-                placeholder="ingrese su experiencia" 
-                value={this.state.userInput}  />  
-              <Button onClick={()=>this.addTolist(this.state.userInput)} >  comentar </Button>
+                placeholder= 'Breve Descripcion' 
+                value={this.state.userInput}
+              />  
+              <ParaSubir>
+                <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
+                <Button onClick={()=>this.addTolist(this.state.userInput)} style = {publicar}>  Publicar </Button>
+              </ParaSubir>
             
             {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
             

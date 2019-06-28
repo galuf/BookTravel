@@ -148,15 +148,17 @@ class BrindarAyuda extends React.Component{
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
-        
+    
         commentSend:this.state.commentSend
         
     };
+
     console.log("photoURL-> ",this.state.user.photoURL);
 
     firebase.database().ref(`anunciosTable/${this.state.commentAnuncios.length}`)
     .set(newAnuncio);
     this.setState({commentSend:''});
+
   }
 
   handleSubmitResponse(e){
@@ -194,8 +196,6 @@ class BrindarAyuda extends React.Component{
     //console.log(this.state.message);
   }
 
-<<<<<<< HEAD
-=======
   updateResponseSend(e){
     let respuestas  =this.state.responseSend;
     
@@ -204,7 +204,7 @@ class BrindarAyuda extends React.Component{
     this.setState({
 
       responseSend:respuestas
-    });
+    }); 
     
   }
 
@@ -232,7 +232,6 @@ class BrindarAyuda extends React.Component{
   }
 
 
->>>>>>> d49eebed4fbd91e77ac7f42dd9fb141785d934f2
   renderSolAyuda(){
     
     if(this.state.user){
@@ -241,14 +240,6 @@ class BrindarAyuda extends React.Component{
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
-              // let idAnuncioTemporal =anuncio.idAnuncio;
-              // this.setState({
-              //   idAnuncioTemp:idAnuncioTemporal
-              // });
-              //console.log("----> anuncio[",index,"]",this.state.commentAnuncios[index]);
-              //if(anuncio.userName == this.state.user.displayName){
-                //var userImagen="";
-                //this.uploadUserTemp(anuncio.userUID).bind(this);
 
                 return(
                   <div className="App-card" key={index}>
@@ -268,23 +259,6 @@ class BrindarAyuda extends React.Component{
 
                       <div style={respuesta} key={index}>
 
-                        {/* Lo ideal seria que se pueda visualizar totdas las respuestas haciendo otra vez un mapeo a
-                            anuncio..respuestas que es un objeto con toas las respuestas
-                         */}
-
-                        {/* {
-                          
-                          
-                            <ul>
-                              {anuncio.respuestas.map(item => (
-                                <li key={item.id}>
-                                  <div>{item}</div>
-                                </li>
-                              ))}
-                            </ul>
-                        
-                          
-                        } */}
                       <form name={index} onSubmit={this.handleSubmitResponse.bind(this)}>
                         <TextField
                             name={index}
@@ -320,7 +294,6 @@ class BrindarAyuda extends React.Component{
     }else{
     //Si no lo esta
     return(
-    
     <Login >Registrarse</Login>
     );
     }
@@ -339,30 +312,3 @@ class BrindarAyuda extends React.Component{
 }
 
 export default BrindarAyuda;
-
-
-
-
-// import React, {Component} from 'react';
-
-// import AppBar from '@material-ui/core/AppBar';
-// import HeaderHome from '../../components/header'
-
-// import ExperienciaComment from './components/experienciaComment';
-
-
-// class BrindarAyuda extends Component{
-// 	render(){
-// 		return(
-// 			<div className="App">
-// 				<AppBar position="static" color="default">
-// 					<HeaderHome titulo = "Brindar Ayuda"/>		
-// 				</AppBar>
-// 				<ExperienciaComment/>  
-// 			</div>
-// 		)
-// 	}
-// }
-
-
-// export default BrindarAyuda;

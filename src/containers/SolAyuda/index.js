@@ -173,12 +173,8 @@ class SolAyuda extends React.Component{
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
-<<<<<<< HEAD
-        commentSend:this.state.commentSend
-=======
         commentSend:this.state.commentSend,
         adResponses:[]
->>>>>>> d49eebed4fbd91e77ac7f42dd9fb141785d934f2
         
     };
     //console.log("photoURL-> ",this.state.user.photoURL);
@@ -270,15 +266,11 @@ class SolAyuda extends React.Component{
                       </div>
 
 
-<<<<<<< HEAD
-                {}    </figure>
-=======
                     </figure>
                     {/* {
                       
                       <Caja>asx</Caja>
                     } */}
->>>>>>> d49eebed4fbd91e77ac7f42dd9fb141785d934f2
                   </div>
                 )
                
