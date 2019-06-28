@@ -25,9 +25,5 @@ const destinos = [{
     title: 'Tingo Maria',
     urlImg: 'https://img.elcomercio.pe/files/article_content_ec_fotos/uploads/2017/03/29/58dc558f08165.jpeg',
     link: './tingomaria'
-  },{
-    title: 'Mis experiencia',
-    urlImg: '',
-    bg: 'green'
   }]
   export default destinos;

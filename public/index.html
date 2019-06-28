@@ -35,5 +35,33 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!--firebase-->
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+        <!-- para la base datos en firebase y otros-->
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#config-web-app -->
+
+        <script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+            apiKey: "AIzaSyCeKhb0WikJhb_hpnFpAOQLRk3yZ_8z9Vg",
+            authDomain: "booktravel-b4c52.firebaseapp.com",
+            databaseURL: "https://booktravel-b4c52.firebaseio.com",
+            projectId: "booktravel-b4c52",
+            storageBucket: "booktravel-b4c52.appspot.com",
+            messagingSenderId: "949802395054",
+            appId: "1:949802395054:web:bf3c26e020387415"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+        </script>
+    <!--Fin firebase-->
   </body>
 </html>

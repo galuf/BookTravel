@@ -1,18 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import HeaderHome from '../../../components/header'
 
-const HeaderHomeWrapper = styled.div`
-  background-color: #76B39D;
-  display: flex;
-  align-items: center;
-  color: white;
-  padding: 12px;
-  span{
-    margin-left: 12px;
-    font-size: 24px;
-    font-family: 'Cabin', sans-serif;
-  }
-`
 const Imagen = styled.img`
   width: 100%;
 `
@@ -30,18 +19,11 @@ const Restaurant = styled.div`
   }
 `
 
-const HeaderHome = () => (
-  <HeaderHomeWrapper>
-    <i className = "material-icons">menu</i>
-    <span>Rocoto Relleno</span>
-  </HeaderHomeWrapper>
-)
-
 class Rocoto extends React.Component{
     render(){
         return (
             <div>
-              <HeaderHome />
+              <HeaderHome titulo="Rocoto Relleno"/>
               
               <Imagen src='https://comidasperuanas.net/wp-content/uploads/2018/05/Rocoto-Relleno.jpg' ></Imagen>
 

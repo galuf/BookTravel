@@ -2,29 +2,15 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { navigate } from "@reach/router"
 import features from '../../utils/features'
+import HeaderHome from '../../components/header'
+import client from '../../config/client'
+import ToastServive from 'react-material-toast';
 
-const HeaderHomeWrapper = styled.div`
-  background-color: #76B39D;
-  display: flex;
-  align-items: center;
-  color: white;
-  padding: 12px;
-  i{
-
-  }
-  span{
-    margin-left: 12px;
-    font-size: 24px;
-    font-family: 'Cabin', sans-serif;
-  }
-`
-
-const HeaderHome = () => (
-  <HeaderHomeWrapper>
-    <i className = "material-icons">menu</i>
-    <span>Inicio</span>
-  </HeaderHomeWrapper>
-)
+const toast = ToastServive.new({
+  place:'bottomRight',
+  duration:1,
+  maxCount:1
+});
 
 const GridFeaturesWrapper = styled.div`
   display: grid;
@@ -71,11 +57,16 @@ const FeatureWrapper = styled.div`
     }
   }
 `
-const rutas = ['./destinos', './gastronomia'];
 
-const Feature = ({item: {urlImg, iconName, title, bg, link } }) => (
+const Feature = ({item: {urlImg, iconName, title, bg, link , estado}, user }) => (
   <FeatureWrapper bg = { bg ? "true": "false"} onClick = { () => {
-    navigate(link)
+    if(user || !estado){
+      navigate(link)
+    }else{
+      const id = toast.info('Debes Iniciar Sesion',()=>{
+      console.log('closed')
+    });
+    }
   }}>
     <img src = {urlImg} alt = ""/>
     { !bg && <div className = "layer"/>}
@@ -86,24 +77,50 @@ const Feature = ({item: {urlImg, iconName, title, bg, link } }) => (
   </FeatureWrapper>
 )
 
-const GridFeatures = ({features}) => (
+const GridFeatures = ({features, user}) => (
   <GridFeaturesWrapper>
     { features.map(( item , index) => (
-      <Feature key = { index } item = {item}/>
+      <Feature key = { index } item = {item} user={user}/>
     ))}
   </GridFeaturesWrapper>
 )
 
 export class Home extends Component {
-  state = {
-    features: features
+  constructor(props){
+    super(props)
+    this.logout=this.logout.bind(this);
   }
+  logout(){
+    client.auth().signOut()
+  }
+  state = {
+    features: features,
+    user:null
+  }
+  
+  componentDidMount() {
+    this.authListener();
+  }
+  
+  authListener() {
+    client.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem('user');
+      }
+    });
+  }
+
   render() {
-    const { features } = this.state;
+    const { features, user } = this.state;
     return (
       <div>
-        <HeaderHome/>
-        <GridFeatures features = { features }/>
+        <HeaderHome titulo = "Inicio"/>
+        <GridFeatures features = { features } user = {user}/>
       </div>
     )
   }
