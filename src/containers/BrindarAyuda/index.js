@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import FullScreenDialog from './ventana.js'
 
 //import numFormat from 'util';
 
@@ -284,13 +285,7 @@ class BrindarAyuda extends React.Component{
                           
                                 
                       </form>
-                      <button style={{color:'white',                      
-                                      border:'none',
-                                      background: 'none',
-                                      textDecoration:'underline', 
-                                      margin:'2px',
-                                      width:'100px',
-                                      height: '30px'}}>Responder</button>
+                      <FullScreenDialog respuestas={Object.values(anuncio.respuestas)}></FullScreenDialog>
                       </div>
                        
                     </figure>
