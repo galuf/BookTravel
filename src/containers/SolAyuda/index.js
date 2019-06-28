@@ -270,7 +270,8 @@ class SolAyuda extends React.Component{
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
-              console.log("----> ", Object.values(anuncio.respuestas) );
+              //console.log("----> ", Object.values(anuncio.respuestas) );
+              //console.log("----> ",anuncio.userName);
               if(anuncio.userName == this.state.user.displayName){
                 return(
                   <div className="App-card" key={index}>
@@ -289,19 +290,33 @@ class SolAyuda extends React.Component{
                       </Ayuda>
                       <div style={respuesta}>
                       
-                      <FullScreenDialog respuestas={Object.values(anuncio.respuestas)}></FullScreenDialog>
-                      
+                          <FullScreenDialog respuestas={Object.values(anuncio.respuestas)}></FullScreenDialog>
+                        
                       </div>
-
-                    </figure>
-                    {/* {
-                      
-                      <Caja>asx</Caja>
-                    } */}
-                  </div>
+                      </figure>
+                      <form name={index} onSubmit={this.handleSubmitResponse.bind(this)}>
+                        <TextField
+                            name={index}
+                            type="text"
+                            value={this.state.responseSend[index]}
+                            onChange={this.updateResponseSend.bind(this)}
+                          />
+                          <Button type="submit">
+                              Send
+                          </Button>            
+                      </form>
+                      <button style={{color:'white',                      
+                                      border:'none',
+                                      background: 'none',
+                                      textDecoration:'underline', 
+                                      margin:'2px',
+                                      width:'150px',
+                                      height: '30px'}}>Ver Respuestas</button>
+                      </div>
+                    
+                    
+                  
                 )
-               
-                
 
               }
             }).reverse()

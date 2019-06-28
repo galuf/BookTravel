@@ -99,7 +99,7 @@ const Usuario = ({user,foto,comentario})=>(
     <Texto>
       <span className='username'>{user}</span>
 
-      <TextoDesc className='descripcion'> <p style={{}}> Descripcion de Imagen:</p>  {comentario}</TextoDesc>
+      <TextoDesc className='descripcion'> <span style={{fontWeight: "bold"}}> Descripcion de Imagen:</span>  {comentario}</TextoDesc>
     </Texto>  
   </User>
 )
@@ -114,6 +114,7 @@ class MiExperiencias extends Component {
       userInput:'',
       comentario:'',
       pictureSend:'',
+      comentarios_all:[],
       list:[]
     }
     // this.authListener = this.authListener.bind(this);
@@ -145,10 +146,10 @@ addTolist(input){
     comentario: input,
   }).then(function() {
     // Update successful.
-    console.log('asd')
+    //console.log('asd')
   }).catch(function(error) {
     // An error happened.
-    console.log('error')
+    //console.log('error')
   });
 
   //-----------------------subir a la base de datos
@@ -164,15 +165,22 @@ addTolist(input){
   newPicture.set(record);
 }
 
-  componentWillMount(){
+  componentDidMount(){
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user });
     });
-   client.database().ref('pictures').on('child_added', snapshot => {
-      this.setState({
-        pictures: this.state.pictures.concat(snapshot.val())
-      });
-    });
+    firebase.database().ref('pictures/').on('value', snap => {
+      //console.log("snap--->",snap);
+       const currentPictures = snap.val();
+       //para 100 anuncios
+       if(currentPictures!==null){
+           this.setState({
+               pictures:currentPictures
+           });
+       }else{
+           console.log("DB anunciosTable-> vacio");
+       }
+     });
   }
 
   handleAuth(){
@@ -218,6 +226,7 @@ addTolist(input){
   renderLoginButton(){
 
     if(this.state.user){
+      //console.log("------->>>>>>  pictures:::",this.state.pictures);
       return(
         <div>
           
@@ -234,8 +243,20 @@ addTolist(input){
               />  
               <ParaSubir>
                 <FileUpload onUpload={this.handleUpload} uploadValue={this.state.uploadValue} />
-                <Button onClick={()=>this.addTolist(this.state.userInput)} style = {publicar}>  Publicar </Button>
+                {/* <Button onClick={()=>this.addTolist(this.state.userInput)} style = {publicar}>  Publicar </Button> */}
+                <Button onClick={
+                              ()=>{
+                                    if(this.state.userInput){
+                                        this.addTolist(this.state.userInput)
+                                    }else{
+                                        alert("Ingrese una experiencia viajando! :)")
+                                    }
+                                  }
+                              } >
+                      Comentar </Button>
               </ParaSubir>
+                
+              
             
             {/* <button onClick={this.handleLogOut}>Cerrar sesion</button> */}
             
@@ -244,20 +265,24 @@ addTolist(input){
           </div>
 
           {
-            this.state.pictures.map((picture,index) => (
+            Object.values(this.state.pictures).map((picture,index) => {
+              if(picture.displayName == this.state.user.displayName){
+                return(
               <div className="App-card" key={index}>
                 <figure className="App-card-image">
                 {/* comentario={this.state.comentario}  */}
                   {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                  <Usuario user = {picture.displayName}  comentario={this.state.comentario}  foto={picture.photoURL}></Usuario>
+                  <Usuario user = {picture.displayName}  comentario={picture.comentario}  foto={picture.photoURL}></Usuario>
                   {/* <Usuario user = {picture.displayName}  comentario={picture.comentario}  foto={picture.photoURL}></Usuario> */}
                   <img width="320" src={picture.image} />
                   <figcaption className="App-card-footer">
                     {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
                   </figcaption>
                 </figure>
-              </div>
-            )).reverse()
+              </div>  
+                )
+              }
+            }).reverse()
           }
 
         </div>

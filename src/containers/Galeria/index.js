@@ -61,7 +61,7 @@ const TextoDesc = styled.span`
   margin: 2px;
 `
 
-const Usuario = ({user,foto})=>(
+const Usuario = ({user,foto,descripcion})=>(
   <User>
     <Caja>
       {
@@ -71,7 +71,8 @@ const Usuario = ({user,foto})=>(
     </Caja>
     <Texto>
       <span className='username'>{user}</span>
-      <TextoDesc className='descripcion'> Descripcion de Imagen </TextoDesc>
+      
+      <TextoDesc className='descripcion'> <span style={{fontWeight: "bold"}}>Descripcion de Imagen: </span> {descripcion}</TextoDesc>
     </Texto>  
   </User>
 )
@@ -94,14 +95,21 @@ class Galeria extends Component {
 //   componentDidMount() {
 //     this.authListener();
 //   }
-  componentWillMount(){
+  componentDidMount(){
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user });
     });
-   client.database().ref('pictures').on('child_added', snapshot => {
-      this.setState({
-        pictures: this.state.pictures.concat(snapshot.val())
-      });
+   firebase.database().ref('pictures/').on('value', snap => {
+     //console.log("snap--->",snap);
+      const currentPictures = snap.val();
+      //para 100 anuncios
+      if(currentPictures!==null){
+          this.setState({
+              pictures:currentPictures
+          });
+      }else{
+          console.log("DB anunciosTable-> vacio");
+      }
     });
   }
 
@@ -152,36 +160,111 @@ class Galeria extends Component {
     }));
   }
 
+  // renderLoginButton(){
+  //   if(this.state.user){
+  //     return(
+  //       <div>
+          
+  //         {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
+
+  //         {
+  //           this.state.pictures.map((picture,index) => {
+  //             <div className="App-card" key={index}>
+  //               <figure className="App-card-image">
+                  
+  //                 {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
+  //                 <Usuario user = {picture.displayName}  foto={picture.photoURL} descripcion={this.state.pictures[index].comentario}></Usuario>
+                  
+  //                 <img width="320" src={picture.image} />
+  //                 <figcaption className="App-card-footer">
+  //                   {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
+  //                 </figcaption>
+  //               </figure>
+  //             </div>
+  //           }).reverse()
+  //         }
+
+  //       </div>
+  //     );
+  //   }
+  // }
+
+  
   renderLoginButton(){
+
+    // client.database().ref('pictures').on('child_added', snapshot => {
+    //   this.setState({
+    //     pictures: this.state.pictures.concat(snapshot.val())
+    //   });
+    // });
+    let tamPublicaciones = Object.keys(this.state.pictures).length;
+    console.log("------<<<<< pictures >>>>",Object.values(this.state.pictures).map((a,i)=>{console.log("->a:",a.comentario,"->i:",i)}),"--> ",Object.keys(this.state.pictures).length)
+    if(this.state.user){
+      console.log("------->>>>>>  pictures:::",this.state.pictures);
       return(
         <div>
           
           {/* <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName}/> */}
+          
+          <Mensaje>Hola { this.state.user.displayName }! Experiencias compartidas! ...</Mensaje> 
+          
 
-          {
-            this.state.pictures.map((picture,index) => (
-              <div className="App-card" key={index}>
-                <figure className="App-card-image">
-                  
-                  {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
-                  <Usuario user = {picture.displayName}  foto={picture.photoURL}></Usuario>
-                  <img width="320" src={picture.image} />
-                  <figcaption className="App-card-footer">
-                    {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
-                  </figcaption>
-                </figure>
-              </div>
-            )).reverse()
-          }
+          
+            
+            {
+              
+              Object.values(this.state.pictures).map((picture,index)=>{
+                //if(picture.displayName == this.state.user.displayName){
+                  return(
+                <div className="App-card" key={index}>
+                  <figure className="App-card-image">
+                  {/* comentario={this.state.comentario}  */}
+                    {/* <span className="App-card-name"> Hola hola {picture.displayName}</span> */}
+                    <Usuario user = {picture.displayName}  descripcion={picture.comentario}  foto={picture.photoURL}></Usuario>
+                    {/* <Usuario user = {picture.displayName}  comentario={picture.comentario}  foto={picture.photoURL}></Usuario> */}
+                    <img width="320" src={picture.image} />
+                    <figcaption className="App-card-footer">
+                      {/* <img className="App-card-avatar" src={picture.photoURL} alt={picture.displayName} /> */}
+                    </figcaption>
+                  </figure>
+                </div>  
+                  )
+                //}
+              }).reverse()
+
+              // Object.values(this.state.pictures).map((publicacion,index)=>{
+              //   return(
+              //     <div>
+              //       <p>{publicacion}</p>
+              //       <p>{index}</p>
+              //     </div>
+              //   )
+              // })
+
+              // for(var index=tamPublicaciones-1;index>=0;index++){
+              //     return(
+              //       <div></div>
+              //     )
+              // }
+
+            }
 
         </div>
       );
+    }else{
+    //Si no lo esta
+    return(
+    
+    <Login >Registrarse</Login>
+    );
+    }
   }
+
 
   render() {
     return (
       <div className="App">
-        <HeaderHome titulo='Galeria'/>
+        <HeaderHome titulo='Galeria Noticias'/>
         <span className="App-intro">
          { this.renderLoginButton() }
         </span>
