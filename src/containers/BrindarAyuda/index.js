@@ -148,13 +148,8 @@ class BrindarAyuda extends React.Component{
         idAnuncio:this.state.commentAnuncios.length,
         userName:this.state.user.displayName,
         userImagen:this.state.user.photoURL,
-<<<<<<< HEAD
-    
-        commentSend:this.state.commentSend
-=======
         commentSend:this.state.commentSend,
         respuestas:[]
->>>>>>> 186eb3ba9cbfd3d458d598f890e45f2ff296eeb5
         
     };
 
@@ -255,11 +250,7 @@ class BrindarAyuda extends React.Component{
           {
 
             this.state.commentAnuncios.map((anuncio,index) => {
-<<<<<<< HEAD
-
-=======
    
->>>>>>> 186eb3ba9cbfd3d458d598f890e45f2ff296eeb5
                 return(
                   <div className="App-card" key={index}>
                     <figure className="App-card-image">
